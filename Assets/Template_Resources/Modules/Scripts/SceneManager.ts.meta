@@ -1,0 +1,66 @@
+fileFormatVersion: 2
+guid: 9100562f48dd54d03b52e51ab2e2b8f3
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst TeleportArea_1 = require(\"./TeleportArea\");\r\nclass
+    SceneManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this.walkSpeed = 2;\r\n        this.runSpeed
+    = 5;\r\n        this.jumpPower = 13;\r\n        this.enableDoubleJump = false;\r\n       
+    this.doubleJumpPower = 13;\r\n        this.fallAreaPosition = -500;\r\n    }\r\n   
+    Start() {\r\n        this.SetTeleportArea();\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\r\n            this.zepetoCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\r\n           
+    this.SetCharacterSettings();\r\n            this.SetDoubleJump();\r\n       
+    });\r\n    }\r\n    SetTeleportArea() {\r\n        const cube = new UnityEngine_1.GameObject;\r\n       
+    const clampPosition = Math.max(-500, Math.min(this.fallAreaPosition, -100));\r\n       
+    cube.transform.position = new UnityEngine_1.Vector3(0, clampPosition, 0);\r\n       
+    const col = cube.AddComponent($typeof(UnityEngine_1.BoxCollider));\r\n       
+    col.isTrigger = true;\r\n        col.size = new UnityEngine_1.Vector3(5000, 50,
+    5000);\r\n        cube.AddComponent($typeof(TeleportArea_1.default));\r\n   
+    }\r\n    SetCharacterSettings() {\r\n        this.zepetoCharacter.additionalJumpPower
+    = this.jumpPower - this.zepetoCharacter.JumpPower;\r\n        this.zepetoCharacter.additionalWalkSpeed
+    = this.walkSpeed - this.zepetoCharacter.WalkSpeed;\r\n        this.zepetoCharacter.additionalRunSpeed
+    = this.runSpeed - this.zepetoCharacter.RunSpeed;\r\n    }\r\n    SetDoubleJump()
+    {\r\n        if (!this.enableDoubleJump) {\r\n            return;\r\n       
+    }\r\n        this.zepetoCharacter.motionState.doubleJumpPower = this.doubleJumpPower;\r\n       
+    // Find an object of type ZepetoScreenButton in the scene\r\n        const screenButton
+    = UnityEngine_1.Object.FindObjectOfType($typeof(ZEPETO_Character_Controller_1.ZepetoScreenButton));\r\n       
+    // Add a listener for the OnPointDownEvent of the screen button to handle jump
+    actions\r\n        screenButton.OnPointDownEvent.AddListener(() => {\r\n           
+    // If the character''s current state is Jump, trigger a double jump\r\n           
+    if (this.zepetoCharacter.CurrentState === ZEPETO_Character_Controller_1.CharacterState.Jump)
+    {\r\n                this.zepetoCharacter.DoubleJump();\r\n            }\r\n       
+    });\r\n    }\r\n}\r\nexports.default = SceneManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2NlbmVNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiU2NlbmVNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBQXVFO0FBQ3ZFLDZFQUErSDtBQUMvSCxpREFBcUQ7QUFDckQsaURBQTBDO0FBRTFDLE1BQXFCLFlBQWEsU0FBUSxxQ0FBcUI7SUFBL0Q7O1FBTVcsY0FBUyxHQUFXLENBQUMsQ0FBQztRQUd0QixhQUFRLEdBQVcsQ0FBQyxDQUFDO1FBR3JCLGNBQVMsR0FBVyxFQUFFLENBQUM7UUFHdkIscUJBQWdCLEdBQVMsS0FBSyxDQUFDO1FBRy9CLG9CQUFlLEdBQVcsRUFBRSxDQUFDO1FBTTdCLHFCQUFnQixHQUFXLENBQUMsR0FBRyxDQUFDO0lBb0QzQyxDQUFDO0lBL0NHLEtBQUs7UUFDRCxJQUFJLENBQUMsZUFBZSxFQUFFLENBQUM7UUFFdkIsMkNBQWEsQ0FBQyxRQUFRLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2RCxJQUFJLENBQUMsZUFBZSxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDO1lBQ2pGLElBQUksQ0FBQyxvQkFBb0IsRUFBRSxDQUFDO1lBQzVCLElBQUksQ0FBQyxhQUFhLEVBQUUsQ0FBQztRQUN6QixDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxlQUFlO1FBQ25CLE1BQU0sSUFBSSxHQUFHLElBQUksd0JBQVUsQ0FBQztRQUM1QixNQUFNLGFBQWEsR0FBRyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUMsR0FBRyxFQUFFLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQztRQUM1RSxJQUFJLENBQUMsU0FBUyxDQUFDLFFBQVEsR0FBRyxJQUFJLHFCQUFPLENBQUMsQ0FBQyxFQUFFLGFBQWEsRUFBRSxDQUFDLENBQUMsQ0FBQztRQUMzRCxNQUFNLEdBQUcsR0FBRyxJQUFJLENBQUMsWUFBWSxTQUFDLHlCQUFXLEVBQUcsQ0FBQztRQUM3QyxHQUFHLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQztRQUNyQixHQUFHLENBQUMsSUFBSSxHQUFHLElBQUkscUJBQU8sQ0FBQyxJQUFJLEVBQUUsRUFBRSxFQUFFLElBQUksQ0FBQyxDQUFDO1FBQ3ZDLElBQUksQ0FBQyxZQUFZLFNBQUMsc0JBQVksRUFBRyxDQUFDO0lBQ3RDLENBQUM7SUFFTyxvQkFBb0I7UUFFeEIsSUFBSSxDQUFDLGVBQWUsQ0FBQyxtQkFBbUIsR0FBRyxJQUFJLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQyxlQUFlLENBQUMsU0FBUyxDQUFDO1FBQzNGLElBQUksQ0FBQyxlQUFlLENBQUMsbUJBQW1CLEdBQUcsSUFBSSxDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUMsZUFBZSxDQUFDLFNBQVMsQ0FBQztRQUMzRixJQUFJLENBQUMsZUFBZSxDQUFDLGtCQUFrQixHQUFHLElBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLGVBQWUsQ0FBQyxRQUFRLENBQUM7SUFDNUYsQ0FBQztJQUVPLGFBQWE7UUFFakIsSUFBSSxDQUFDLElBQUksQ0FBQyxnQkFBZ0IsRUFBRTtZQUN4QixPQUFPO1NBQ1Y7UUFFRCxJQUFJLENBQUMsZUFBZSxDQUFDLFdBQVcsQ0FBQyxlQUFlLEdBQUcsSUFBSSxDQUFDLGVBQWUsQ0FBQztRQUV4RSx5REFBeUQ7UUFDekQsTUFBTSxZQUFZLEdBQUcsb0JBQU0sQ0FBQyxnQkFBZ0IsU0FBQyxnREFBa0IsRUFBRyxDQUFDO1FBRW5FLHNGQUFzRjtRQUN0RixZQUFZLENBQUMsZ0JBQWdCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUUzQyxrRUFBa0U7WUFDbEUsSUFBSSxJQUFJLENBQUMsZUFBZSxDQUFDLFlBQVksS0FBSyw0Q0FBYyxDQUFDLElBQUksRUFBRTtnQkFDM0QsSUFBSSxDQUFDLGVBQWUsQ0FBQyxVQUFVLEVBQUUsQ0FBQzthQUNyQztRQUNMLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztDQUNKO0FBNUVELCtCQTRFQyJ9","assetPath":"Assets/Template_Resources/Modules/Scripts/SceneManager.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"walkSpeed","type":"System.Single","isArray":false,"initValue":["2"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"Character
+    Settings\""]},{"name":"Tooltip","args":["\"Adjust the walking speed of the ZEPETO
+    character. The default value is 2.\""]}]},{"assembly":"mscorlib","name":"runSpeed","type":"System.Single","isArray":false,"initValue":["5"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Adjust
+    the running speed of the ZEPETO character. The default value is 5.\""]}]},{"assembly":"mscorlib","name":"jumpPower","type":"System.Single","isArray":false,"initValue":["13"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Set
+    the standard jump power. The default value is 13.\""]}]},{"assembly":"mscorlib","name":"enableDoubleJump","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"When
+    this property is enabled, the ZEPETO character can perform a double jump.\""]}]},{"assembly":"mscorlib","name":"doubleJumpPower","type":"System.Single","isArray":false,"initValue":["13"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Set
+    the jump power for the double jump. The default value is 13.\""]}]},{"assembly":"mscorlib","name":"fallAreaPosition","type":"System.Single","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"Scene
+    Settings\""]},{"name":"Tooltip","args":["\"Set the ground height at which the
+    ZEPETO character will return to the spawn location when falling. Otherwise, the
+    character may fall indefinitely. This value can be set between -100 and -500.\""]}]}],"name":"SceneManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 416795240f8db5c7845ccf8d1a4c7cf7
+  onlyWriteTrigger: 0

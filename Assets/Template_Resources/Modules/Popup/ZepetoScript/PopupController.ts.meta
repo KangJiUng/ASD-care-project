@@ -1,0 +1,45 @@
+fileFormatVersion: 2
+guid: 5c5100582b5e04fb69d72ab7488ee262
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_World_Gui_1 = require(\"ZEPETO.World.Gui\");\r\nclass PopupController
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    // @HideInInspector()
+    public OnClickEvent: UnityEvent;\r\n    Start() {\r\n        this._background.sprite
+    = this.backgroundImage;\r\n        this._text.text = this.message;\r\n       
+    this._text.color = this.messageColor;\r\n        this._text.GetComponent($typeof(UnityEngine_UI_1.Shadow)).enabled
+    = this.messageShadow;\r\n        this._button.gameObject.GetComponentInChildren($typeof(ZEPETO_World_Gui_1.ZepetoText)).text
+    = this.buttonTitle;\r\n        this._button.onClick.AddListener(() => {\r\n           
+    this._canvas.gameObject.SetActive(false);\r\n        });\r\n    }\r\n}\r\nexports.default
+    = PopupController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUG9wdXBDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiUG9wdXBDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELG1EQUFxRDtBQUNyRCw2Q0FBeUU7QUFFekUsdURBQTRDO0FBRTVDLE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBb0I5RCxzREFBc0Q7SUFFdEQsS0FBSztRQUVELElBQUksQ0FBQyxXQUFXLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxlQUFlLENBQUM7UUFFL0MsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLEdBQUcsSUFBSSxDQUFDLE9BQU8sQ0FBQztRQUMvQixJQUFJLENBQUMsS0FBSyxDQUFDLEtBQUssR0FBRyxJQUFJLENBQUMsWUFBWSxDQUFDO1FBQ3JDLElBQUksQ0FBQyxLQUFLLENBQUMsWUFBWSxTQUFDLHVCQUFNLEVBQUcsQ0FBQyxPQUFPLEdBQUcsSUFBSSxDQUFDLGFBQWEsQ0FBQztRQUUvRCxJQUFJLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxzQkFBc0IsU0FBQyw2QkFBVSxFQUFHLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUM7UUFFckYsSUFBSSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUUsRUFBRTtZQUNqQyxJQUFJLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDN0MsQ0FBQyxDQUFDLENBQUM7SUFDUCxDQUFDO0NBRUo7QUFyQ0Qsa0NBcUNDIn0=","assetPath":"Assets/Template_Resources/Modules/Popup/ZepetoScript/PopupController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"backgroundImage","type":"UnityEngine.Sprite","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"[Custom
+    Properties]\""]},{"name":"Tooltip","args":["\"Graphic shown as background image,
+    needs to be a Sprite type\""]}]},{"assembly":"mscorlib","name":"message","type":"System.String","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"String
+    for the message shown above the button\""]}]},{"assembly":"UnityEngine.CoreModule","name":"messageColor","type":"UnityEngine.Color","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Text
+    color for the message\""]}]},{"assembly":"mscorlib","name":"messageShadow","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Enable/Disable
+    shadow of the message text\""]}]},{"assembly":"mscorlib","name":"buttonTitle","type":"System.String","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Caption
+    of the button\""]}]},{"assembly":"UnityEngine.UIModule","name":"_canvas","type":"UnityEngine.Canvas","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"[Connections
+    - do not edit]\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.UI","name":"_background","type":"UnityEngine.UI.Image","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.UI","name":"_button","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"ZEPETO.World.Gui","name":"_text","type":"ZEPETO.World.Gui.ZepetoText","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"PopupController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 541f27e32134e4fd9b3e4fea708f2286
+  onlyWriteTrigger: 0
