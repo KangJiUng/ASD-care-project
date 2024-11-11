@@ -1,0 +1,61 @@
+fileFormatVersion: 2
+guid: 7d6ba244f82e64d808f893dad65f0909
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst InteractionIcon_1 = require(\"../Interaction/ZepetoScript/InteractionIcon\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nclass TimerController extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this._isStart = false;\r\n        this._elapsedTime = 0;\r\n    }\r\n    Start()
+    {\r\n        this.SetInteractionIcons();\r\n        this._interactionIcon_start.OnClickEvent.AddListener(()
+    => {\r\n            this.StartTimer();\r\n        });\r\n        this._interactionIcon_end.OnClickEvent.AddListener(()
+    => {\r\n            this.EndTimer();\r\n        });\r\n    }\r\n    SetInteractionIcons()
+    {\r\n        const interactionIcons = this.GetComponentsInChildren($typeof(InteractionIcon_1.default));\r\n       
+    interactionIcons.forEach(e => {\r\n            if (e.name == \"InteractionPoint_Start\")
+    {\r\n                this._interactionIcon_start = e;\r\n            }\r\n           
+    else if (e.name == \"InteractionPoint_End\") {\r\n                this._interactionIcon_end
+    = e;\r\n            }\r\n        });\r\n    }\r\n    StartTimer() {\r\n       
+    this._interactionIcon_start.HideIcon();\r\n        this._isStart = true;\r\n       
+    this.CheckUICanvas();\r\n        this._success.SetActive(false);\r\n        this._coTimer
+    = this.StartCoroutine(this.CoTimer());\r\n    }\r\n    EndTimer() {\r\n       
+    if (!this._isStart) {\r\n            return;\r\n        }\r\n        this._interactionIcon_end.HideIcon();\r\n       
+    this._isStart = false;\r\n        this.StopCoroutine(this._coTimer);\r\n       
+    this.StartCoroutine(this.CoSuccess());\r\n    }\r\n    *CoSuccess() {\r\n       
+    this._success.SetActive(true);\r\n        yield new UnityEngine_1.WaitForSeconds(1);\r\n       
+    this._success.SetActive(false);\r\n        this._currentTimerUI.SetActive(false);\r\n   
+    }\r\n    *CoTimer() {\r\n        while (true) {\r\n            this._elapsedTime
+    += UnityEngine_1.Time.deltaTime;\r\n            this.FormatTime(this._elapsedTime);\r\n           
+    yield null;\r\n        }\r\n    }\r\n    CheckUICanvas() {\r\n        if (UnityEngine_1.Object.op_Equality(this._currentTimerUI,
+    null)) {\r\n            this._currentTimerUI = UnityEngine_1.GameObject.Instantiate(this.timerUI);\r\n           
+    this._timerText = this._currentTimerUI.GetComponentInChildren($typeof(UnityEngine_UI_1.Text));\r\n           
+    this._success = this._currentTimerUI.GetComponentInChildren($typeof(UnityEngine_UI_1.RawImage)).gameObject;\r\n       
+    }\r\n        this._currentTimerUI.SetActive(true);\r\n    }\r\n    FormatTime(time)
+    {\r\n        const minutes = UnityEngine_1.Mathf.FloorToInt(time / 60);\r\n       
+    const seconds = UnityEngine_1.Mathf.FloorToInt(time % 60);\r\n        const minuteString
+    = minutes < 10 ? \"0\" + minutes.toString() : minutes.toString();\r\n       
+    const secondString = seconds < 10 ? \"0\" + seconds.toString() : seconds.toString();\r\n       
+    this._timerText.text = minuteString + \" : \" + secondString;\r\n    }\r\n}\r\nexports.default
+    = TimerController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVGltZXJDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiVGltZXJDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBQTZHO0FBQzdHLGlEQUFxRDtBQUVyRCxpRkFBMEU7QUFDMUUsbURBQWdEO0FBRWhELE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBQWxFOztRQU1ZLGFBQVEsR0FBUyxLQUFLLENBQUM7UUFJdkIsaUJBQVksR0FBVyxDQUFDLENBQUM7SUFnRnJDLENBQUM7SUE3RVcsS0FBSztRQUVULElBQUksQ0FBQyxtQkFBbUIsRUFBRSxDQUFDO1FBRTNCLElBQUksQ0FBQyxzQkFBc0IsQ0FBQyxZQUFZLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN0RCxJQUFJLENBQUMsVUFBVSxFQUFFLENBQUM7UUFDdEIsQ0FBQyxDQUFDLENBQUM7UUFFSCxJQUFJLENBQUMsb0JBQW9CLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDcEQsSUFBSSxDQUFDLFFBQVEsRUFBRSxDQUFDO1FBQ3BCLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztJQUVPLG1CQUFtQjtRQUN2QixNQUFNLGdCQUFnQixHQUFHLElBQUksQ0FBQyx1QkFBdUIsU0FBQyx5QkFBZSxFQUFHLENBQUM7UUFDekUsZ0JBQWdCLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxFQUFFO1lBQ3pCLElBQUksQ0FBQyxDQUFDLElBQUksSUFBSSx3QkFBd0IsRUFBRTtnQkFDcEMsSUFBSSxDQUFDLHNCQUFzQixHQUFHLENBQUMsQ0FBQzthQUNuQztpQkFBTSxJQUFJLENBQUMsQ0FBQyxJQUFJLElBQUksc0JBQXNCLEVBQUU7Z0JBQ3pDLElBQUksQ0FBQyxvQkFBb0IsR0FBRyxDQUFDLENBQUM7YUFDakM7UUFDTCxDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxVQUFVO1FBQ2QsSUFBSSxDQUFDLHNCQUFzQixDQUFDLFFB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","assetPath":"Assets/Template_Resources/Modules/Scripts/TimerController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"timerUI","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"TimerController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: e01c645b614c7c39b6f729a5d43f3637
+  onlyWriteTrigger: 0

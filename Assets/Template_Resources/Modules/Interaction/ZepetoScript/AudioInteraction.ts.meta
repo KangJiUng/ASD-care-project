@@ -1,0 +1,36 @@
+fileFormatVersion: 2
+guid: 4d66e65a1966143bb9e5240c7276faae
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst InteractionIcon_1 = require(\"./InteractionIcon\");\r\nclass
+    AudioInteraction extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Start()
+    {\r\n        this._interactionIcon = this.transform.GetComponent($typeof(InteractionIcon_1.default));\r\n       
+    this._interactionIcon.OnClickEvent.AddListener(() => {\r\n            this._interactionIcon.HideIcon();\r\n           
+    this.DoInteraction();\r\n        });\r\n        this._audioSource = this.GetComponent($typeof(UnityEngine_1.AudioSource));\r\n       
+    this._audioSource.clip = this.audioClip;\r\n    }\r\n    DoInteraction() {\r\n       
+    this._audioSource.Play();\r\n    }\r\n}\r\nexports.default = AudioInteraction;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQXVkaW9JbnRlcmFjdGlvbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkF1ZGlvSW50ZXJhY3Rpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBb0Q7QUFDcEQsaURBQXFEO0FBQ3JELHVEQUFnRDtBQUVoRCxNQUFxQixnQkFBaUIsU0FBUSxxQ0FBcUI7SUFNL0QsS0FBSztRQUNELElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDLFlBQVksU0FBQyx5QkFBZSxFQUFHLENBQUM7UUFFdkUsSUFBSSxDQUFDLGdCQUFnQixDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsR0FBRSxFQUFFO1lBQy9DLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxRQUFRLEVBQUUsQ0FBQztZQUNqQyxJQUFJLENBQUMsYUFBYSxFQUFFLENBQUM7UUFDekIsQ0FBQyxDQUFDLENBQUM7UUFDSCxJQUFJLENBQUMsWUFBWSxHQUFHLElBQUksQ0FBQyxZQUFZLFNBQUMseUJBQVcsRUFBRyxDQUFDO1FBQ3JELElBQUksQ0FBQyxZQUFZLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUM7SUFDNUMsQ0FBQztJQUVELGFBQWE7UUFDVCxJQUFJLENBQUMsWUFBWSxDQUFDLElBQUksRUFBRSxDQUFDO0lBQzdCLENBQUM7Q0FFSjtBQXJCRCxtQ0FxQkMifQ==","assetPath":"Assets/Template_Resources/Modules/Interaction/ZepetoScript/AudioInteraction.ts","manifest":{"properties":[{"assembly":"UnityEngine.AudioModule","name":"audioClip","type":"UnityEngine.AudioClip","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"AudioInteraction","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: acb52b58004f6c277b31f334ba80ed33
+  onlyWriteTrigger: 0
