@@ -11,10 +11,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Build_it
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   templateScene: {fileID: 102900000, guid: 4950a937a613549baa198138952cae55, type: 3}
-  templateName: 
-  description: 
+  templateName:
+  description:
   preview: {fileID: 2800000, guid: cedb626c3e69041f3b9ee76dd88464bf, type: 3}
   dependencies:
   - dependency: {fileID: 100000, guid: 49b01d2c02539464f98ac2754a163c33, type: 3}
