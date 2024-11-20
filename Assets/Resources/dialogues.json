@@ -1,0 +1,44 @@
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "text": "A transfer student came to our class. Can you introduce yourself to the class?",
+      "options": [
+        "Hi, I'm Jiung. Nice to meet you.",
+        "Say nothing.",
+        "Shout loudly.",
+        "Why should I?"
+      ]
+    },
+    {
+      "id": 2,
+      "text": "Jiung, your seat is next to Wansu over there. Can you raise your hand, Wansu?",
+      "options": [
+        "Yes, I understand, teacher.",
+        "No, I won't!",
+        "Ignore the teacher.",
+        "Go sit somewhere else I like."
+      ]
+    },
+    {
+      "id": 3,
+      "text": "Wansu: Hi Jiung, I'm Wansu! Let's get along well!",
+      "options": [
+        "Ignore Wansu.",
+        "I don't want to.",
+        "Sure, Wansu! Let's be good friends!",
+        "What do you mean by 'let's get along'?"
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Break Time. Wansu: Yay, it's break time! I'm already hungry. Did you have breakfast?",
+      "options": [
+        "Yes, I did.",
+        "No, I skipped it.",
+        "Why do you ask?",
+        "Ignore Wansu."
+      ]
+    }
+  ]
+}

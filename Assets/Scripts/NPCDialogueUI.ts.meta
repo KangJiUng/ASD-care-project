@@ -1,0 +1,85 @@
+fileFormatVersion: 2
+guid: 8572142e2d2719649af5e89e2621038a
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst
+    UnityEngine_UI_1 = require(\\\"UnityEngine.UI\\\");\\r\\nconst TMPro_1 = require(\\\"TMPro\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nclass DialogueManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        this._dialogues = []; // JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u037F\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u022D \uFFFD\u8FED\\r\\n       
+    this._currentDialogueIndex = 0; // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u022D
+    \uFFFD\u03B5\uFFFD\uFFFD\uFFFD\\r\\n        this._isInCollider = false; // Collider
+    \uFFFD\u023F\uFFFD \uFFFD\u05B4\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n   
+    }\\r\\n    Start() {\\r\\n        // Zepeto \uFFFD\xF7\uFFFD\uFFFD\u033E\uFFFD
+    \uFFFD\u02B1\uFFFD\u022D\\r\\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\\r\\n            this._zepetoCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n           
+    console.log(\\\"Player character initialized.\\\");\\r\\n        });\\r\\n       
+    // JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u03B5\uFFFD\\r\\n       
+    const jsonFile = UnityEngine_1.Resources.Load(\\\"dialogues\\\"); // Resources/dialogues.json\\r\\n       
+    if (jsonFile) {\\r\\n            const data = JSON.parse(jsonFile.text);\\r\\n           
+    this._dialogues = data.dialogues;\\r\\n        }\\r\\n        else {\\r\\n           
+    console.error(\\\"Failed to load JSON file. Ensure the file is in the Resources
+    folder.\\\");\\r\\n            return;\\r\\n        }\\r\\n        // UI \uFFFD\u02B1\uFFFD\u022D\\r\\n       
+    this.HideUI();\\r\\n        // \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u01B0
+    \u016C\uFFFD\uFFFD \uFFFD\u033A\uFFFD\u01AE \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n       
+    for (let i = 0; i < this.choiceButtons.length; i++) {\\r\\n            const
+    buttonIndex = i; // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\u01B0 \uFFFD\u03B5\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n           
+    this.choiceButtons[i].onClick.AddListener(() => this.OnChoiceSelected(buttonIndex));\\r\\n       
+    }\\r\\n    }\\r\\n    OnTriggerEnter(collider) {\\r\\n        if (this._zepetoCharacter
+    && collider.gameObject === this._zepetoCharacter.gameObject) {\\r\\n           
+    console.log(\\\"Player entered NPC zone.\\\");\\r\\n            this._isInCollider
+    = true;\\r\\n            this.ShowUI();\\r\\n        }\\r\\n    }\\r\\n    OnTriggerExit(collider)
+    {\\r\\n        if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            console.log(\\\"Player exited NPC zone.\\\");\\r\\n           
+    this._isInCollider = false;\\r\\n            this.HideUI();\\r\\n        }\\r\\n   
+    }\\r\\n    ShowUI() {\\r\\n        if (!this._isInCollider)\\r\\n           
+    return; // Collider \uFFFD\uFFFD\uFFFD\u03BF\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD UI
+    \u01E5\uFFFD\uFFFD\\r\\n        this.UpdateDialogue();\\r\\n        this.dialogueCanvas.SetActive(true);\\r\\n   
+    }\\r\\n    HideUI() {\\r\\n        console.log(\\\"Hiding UI...\\\");\\r\\n       
+    this.dialogueCanvas.SetActive(false);\\r\\n    }\\r\\n    UpdateDialogue() {\\r\\n       
+    if (this._currentDialogueIndex >= this._dialogues.length) {\\r\\n           
+    console.log(\\\"End of dialogues.\\\");\\r\\n            this.HideUI();\\r\\n           
+    return;\\r\\n        }\\r\\n        const currentDialogue = this._dialogues[this._currentDialogueIndex];\\r\\n       
+    // \uFFFD\uFFFD\u022D \uFFFD\u063D\uFFFD\u01AE \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u01AE\\r\\n       
+    this.dialogueText.text = currentDialogue.text;\\r\\n        // \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\u01B0 \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u01AE\\r\\n        if
+    (currentDialogue.options && currentDialogue.options.length > 0) {\\r\\n           
+    this.ShowChoices(currentDialogue.options);\\r\\n        }\\r\\n        else {\\r\\n           
+    this.HideChoices();\\r\\n        }\\r\\n    }\\r\\n    ShowChoices(choices) {\\r\\n       
+    this.HideChoices(); // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u01B0 \uFFFD\u02B1\uFFFD\u022D\\r\\n       
+    for (let i = 0; i < choices.length; i++) {\\r\\n            if (i < this.choiceButtons.length)
+    {\\r\\n                this.choiceButtons[i].gameObject.SetActive(true);\\r\\n               
+    this.choiceButtons[i].GetComponentInChildren($typeof(TMPro_1.TMP_Text)).text
+    = choices[i];\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n    HideChoices()
+    {\\r\\n        for (const button of this.choiceButtons) {\\r\\n            button.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n    }\\r\\n    OnChoiceSelected(choiceIndex) {\\r\\n        console.log(`Choice
+    ${choiceIndex + 1} selected.`);\\r\\n        this._currentDialogueIndex++; //
+    \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u022D\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n       
+    this.UpdateDialogue();\\r\\n    }\\r\\n}\\r\\nexports.default = DialogueManager;\\r\\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTlBDRGlhbG9ndWVVSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk5QQ0RpYWxvZ3VlVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBeUU7QUFDekUsbURBQXdDO0FBQ3hDLGlDQUFpQztBQUNqQyxpREFBc0Q7QUFDdEQsNkVBQTZFO0FBUzdFLE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBQWxFOztRQU1ZLGVBQVUsR0FBZSxFQUFFLENBQUMsQ0FBQywrQkFBK0I7UUFDNUQsMEJBQXFCLEdBQVcsQ0FBQyxDQUFDLENBQUMsaUJBQWlCO1FBQ3BELGtCQUFhLEdBQVksS0FBSyxDQUFDLENBQUMsMEJBQTBCO0lBbUd0RSxDQUFDO0lBaEdHLEtBQUs7UUFDRCxxQkFBcUI7UUFDckIsMkNBQWEsQ0FBQyxRQUFRLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2RCxJQUFJLENBQUMsZ0JBQWdCLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUM7WUFDbEYsT0FBTyxDQUFDLEdBQUcsQ0FBQywrQkFBK0IsQ0FBQyxDQUFDO1FBQ2pELENBQUMsQ0FBQyxDQUFDO1FBRUgsa0JBQWtCO1FBQ2xCLE1BQU0sUUFBUSxHQUFjLHVCQUFTLENBQUMsSUFBSSxDQUFZLFdBQVcsQ0FBQyxDQUFDLENBQUMsMkJBQTJCO1FBQy9GLElBQUksUUFBUSxFQUFFO1lBQ1YsTUFBTSxJQUFJLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUM7WUFDdkMsSUFBSSxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDO1NBQ3BDO2FBQU07WUFDSCxPQUFPLENBQUMsS0FBSyxDQUFDLHVFQUF1RSxDQUFDLENBQUM7WUFDdkYsT0FBTztTQUNWO1FBRUQsVUFBVTtRQUNWLElBQUksQ0FBQyxNQUFNLEVBQUUsQ0FBQztRQUVkLDJCQUEyQjtR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\",\"assetPath\":\"Assets/Scripts/NPCDialogueUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"dialogueCanvas\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"dialogueText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"choiceButtons\",\"type\":\"UnityEngine.UI.Button[]\",\"isArray\":true,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"DialogueManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: c79bea3de5005caf6e3490f64e91c958
+  onlyWriteTrigger: 0
