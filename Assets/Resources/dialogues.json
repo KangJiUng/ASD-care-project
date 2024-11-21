@@ -2,43 +2,87 @@
   "dialogues": [
     {
       "id": 1,
-      "text": "A transfer student came to our class. Can you introduce yourself to the class?",
-      "options": [
-        "Hi, I'm Jiung. Nice to meet you.",
-        "Say nothing.",
-        "Shout loudly.",
-        "Why should I?"
-      ]
+      "name": "teacher",
+      "text": "Hello, nice to meet you. Would you like to meet your friends now?",
+      "options": null
     },
     {
       "id": 2,
-      "text": "Jiung, your seat is next to Wansu over there. Can you raise your hand, Wansu?",
+      "name": "teacher",
+      "text": "A transfer student came to our class. Can you introduce yourself to the class?",
       "options": [
-        "Yes, I understand, teacher.",
-        "No, I won't!",
-        "Ignore the teacher.",
-        "Go sit somewhere else I like."
+        {
+          "type": "text",
+          "value": "\"Hi, I'm Jiung. Nice to meet you.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "Say nothing.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Shout loudly.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Why should I?\"",
+          "required": false
+        }
       ]
     },
     {
       "id": 3,
-      "text": "Wansu: Hi Jiung, I'm Wansu! Let's get along well!",
-      "options": [
-        "Ignore Wansu.",
-        "I don't want to.",
-        "Sure, Wansu! Let's be good friends!",
-        "What do you mean by 'let's get along'?"
-      ]
+      "name": null,
+      "text": "(Students: Clap their hands.)",
+      "options": null
     },
     {
       "id": 4,
-      "text": "Break Time. Wansu: Yay, it's break time! I'm already hungry. Did you have breakfast?",
+      "name": "teacher",
+      "text": "Jiung, your seat is next to Wansu over there. Raise your hand, Wansu.",
+      "options": null
+    },
+    {
+      "id": 5,
+      "name": "teacher",
+      "text": "Okay. Go take your seat over there :)",
       "options": [
-        "Yes, I did.",
-        "No, I skipped it.",
-        "Why do you ask?",
-        "Ignore Wansu."
+        {
+          "type": "text",
+          "value": "\"Over there? Okay, teacher.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"No, I won't!\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore the teacher.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Go sit somewhere else I like.",
+          "required": false
+        }
       ]
+    },
+    {
+      "id": 6,
+      "name": "teacher",
+      "text": "Go and talk to Wansu.",
+      "options": null
+    },
+    {
+      "id": 31,
+      "name": null,
+      "text": "Think again and choose.",
+      "options": null
     }
   ]
 }
