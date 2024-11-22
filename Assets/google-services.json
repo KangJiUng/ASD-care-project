@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644897850920",
+    "project_id": "day6asd",
+    "storage_bucket": "day6asd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644897850920:android:674c6b02d72a010dc6d71d",
+        "android_client_info": {
+          "package_name": "com.day6.asdcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5EjKWkeYvtH2egRi75WV3fwnLLrDoJhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

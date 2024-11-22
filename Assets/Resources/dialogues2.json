@@ -1,0 +1,210 @@
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "name": "Wansu",
+      "text": "Hi Jiung, I'm Wansu! Let's get along well!",
+      "options": [
+        {
+          "type": "text",
+          "value": "Ignore Wansu.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I don't want to.\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Sure, Wansu! We will be good friends!\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"What do you mean by 'let's get along'?\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Wansu",
+      "text": "Great! :)",
+      "options": null
+    },
+    {
+      "id": 3,
+      "name": null,
+      "text": "(Break Time)",
+      "options": null
+    },
+    {
+      "id": 4,
+      "name": "Wansu",
+      "text": "Yay, it's break time! I'm hungry. Did you have breakfast?",
+      "options": null
+    },
+    {
+      "id": 5,
+      "name": "me",
+      "text": "Yes, I did.",
+      "options": null
+    },
+    {
+      "id": 6,
+      "name": "Wansu",
+      "text": "What did you eat?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Why are you asking?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I had kimchi-jjigae.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"So what?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore the question.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Wansu",
+      "text": "Wow, that sounds delicious! I love eating kimchi-jjigae with rice and gim.",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Oh, I see. What did you eat today?\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "Ignore Wansu.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I don't like gim.\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I only eat it with rice.\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Wansu",
+      "text": "I ate kimbap my mom made for me. I ate a lot, but I'm still hungry, haha!",
+      "options": null
+    },
+    {
+      "id": 9,
+      "name": "Wansu",
+      "text": "Ah, the next class is math... Math is so hard.",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Why are you telling me?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Okay, I got it.\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Is something wrong?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I don't like math either.\"",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Wansu",
+      "text": "Oh, really?",
+      "options": null
+    },
+    {
+      "id": 12,
+      "name": "Wansu",
+      "text": "I'm glad we have P.E. class today. The teacher said we'll have free time.",
+      "options": null
+    },
+    {
+      "id": 13,
+      "name": "Wansu",
+      "text": "Let's play together later! What do you want to do?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Why should I play with you?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore Wansu.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Let's play badminton!\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"I'll go home.\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Wansu",
+      "text": "Wow, that sounds great! I love badminton!",
+      "options": [
+        {
+          "type": "image",
+          "value": "test1",
+          "required": false
+        },
+        {
+          "type": "image",
+          "value": "test2",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": null,
+      "text": "Then, see you later during P.E. class!",
+      "options": null
+    },
+    {
+      "id": 31,
+      "name": null,
+      "text": "Think again and choose.",
+      "options": null
+    }
+  ]
+}

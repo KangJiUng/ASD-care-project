@@ -1,0 +1,70 @@
+fileFormatVersion: 2
+guid: cab071ed8e53ff3428102f1fd9aa7785
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    ZEPETO_Character_Controller_1 = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nclass
+    BillboardUIManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor()
+    {\\r\\n        super(...arguments);\\r\\n        this._zepetoCharacter = null;
+    // \u0133\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n        this._isInCollider
+    = false; // \u0133\uFFFD\uFFFD\uFFFD\u0370\uFFFD Collider \uFFFD\u023F\uFFFD
+    \uFFFD\u05B4\uFFFD\uFFFD\uFFFD \u022E\uFFFD\uFFFD\\r\\n    }\\r\\n    Start()
+    {\\r\\n        // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\xF7\uFFFD\uFFFD\u033E\uFFFD
+    \uFFFD\u07F0\uFFFD \uFFFD\uFFFD \u0133\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\\r\\n            this._zepetoCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    });\\r\\n        // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD UI \uFFFD\uFFFD\u0230\uFFFD\uFFFD\u022D\\r\\n       
+    this.HideUI();\\r\\n    }\\r\\n    // Collider \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\\r\\n    OnTriggerEnter(collider)
+    {\\r\\n        if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            this._isInCollider = true;\\r\\n            this.ShowUI();\\r\\n           
+    this.LoadJSONDataToScrollView(); // JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\u03B5\uFFFD\\r\\n        }\\r\\n    }\\r\\n    // Collider\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\\r\\n    OnTriggerExit(collider)
+    {\\r\\n        if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            this._isInCollider = false;\\r\\n            this.HideUI();\\r\\n       
+    }\\r\\n    }\\r\\n    // UI \u0230\uFFFD\uFFFD\u022D \uFFFD\u07BC\uFFFD\uFFFD\uFFFD\\r\\n   
+    ShowUI() {\\r\\n        if (!this._isInCollider)\\r\\n            return;\\r\\n       
+    this.billboardCanvas.SetActive(true);\\r\\n    }\\r\\n    // UI \uFFFD\uFFFD\u0230\uFFFD\uFFFD\u022D
+    \uFFFD\u07BC\uFFFD\uFFFD\uFFFD\\r\\n    HideUI() {\\r\\n        this.billboardCanvas.SetActive(false);\\r\\n   
+    }\\r\\n    // JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u03B5\uFFFD \uFFFD\uFFFD
+    ScrollView \uFFFD\u063D\uFFFD\u01AE \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u01AE\\r\\n   
+    LoadJSONDataToScrollView() {\\r\\n        if (!this.jsonFile) {\\r\\n           
+    console.error(\\\"JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\u02BE\u04BD\uFFFD\uFFFD\u03F4\uFFFD.\\\");\\r\\n            return;\\r\\n       
+    }\\r\\n        // JSON \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u013D\uFFFD\\r\\n       
+    const jsonData = JSON.parse(this.jsonFile.text);\\r\\n        // JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    text \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD ScrollView \uFFFD\u063D\uFFFD\u01AE\uFFFD\uFFFD
+    \uFFFD\uFFFD\u022F\\r\\n        let formattedText = \\\"\\\";\\r\\n        if
+    (jsonData.feedbacks && Array.isArray(jsonData.feedbacks)) {\\r\\n           
+    jsonData.feedbacks.forEach((feedback) => {\\r\\n                formattedText
+    += feedback.text + \\\"\\\\n\\\"; // JSON\uFFFD\uFFFD text \uFFFD\u02B5\uFFFD
+    \uFFFD\u07F0\uFFFD\\r\\n            });\\r\\n        }\\r\\n        else {\\r\\n           
+    console.error(\\\"JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\xF9\u0678\uFFFD\uFFFD\uFFFD \uFFFD\u02BD\uFFFD\uFFFD\u03F4\uFFFD.\\\");\\r\\n       
+    }\\r\\n        // ScrollView\uFFFD\uFFFD \uFFFD\u063D\uFFFD\u01AE \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u01AE\\r\\n       
+    this.scrollViewText.text = formattedText;\\r\\n    }\\r\\n}\\r\\nexports.default
+    = BillboardUIManager;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRmVlZEJhY2tVSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkZlZWRCYWNrVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFDQSxpREFBc0Q7QUFDdEQsNkVBQTZFO0FBRzdFLE1BQXFCLGtCQUFtQixTQUFRLHFDQUFxQjtJQUFyRTs7UUFJWSxxQkFBZ0IsR0FBMkIsSUFBSSxDQUFDLENBQUMsYUFBYTtRQUM5RCxrQkFBYSxHQUFZLEtBQUssQ0FBQyxDQUFDLGdDQUFnQztJQStENUUsQ0FBQztJQTdERyxLQUFLO1FBQ0QscUNBQXFDO1FBQ3JDLDJDQUFhLENBQUMsUUFBUSxDQUFDLGtCQUFrQixDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdkQsSUFBSSxDQUFDLGdCQUFnQixHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDO1FBQ3RGLENBQUMsQ0FBQyxDQUFDO1FBRUgsb0JBQW9CO1FBQ3BCLElBQUksQ0FBQyxNQUFNLEVBQUUsQ0FBQztJQUNsQixDQUFDO0lBRUQsNEJBQTRCO0lBQzVCLGNBQWMsQ0FBQyxRQUFrQjtRQUM3QixJQUFJLElBQUksQ0FBQyxnQkFBZ0IsSUFBSSxRQUFRLENBQUMsVUFBVSxLQUFLLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxVQUFVLEVBQUU7WUFDbkYsSUFBSSxDQUFDLGFBQWEsR0FBRyxJQUFJLENBQUM7WUFDMUIsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDO1lBQ2QsSUFBSSxDQUFDLHdCQUF3QixFQUFFLENBQUMsQ0FBQyxrQkFBa0I7U0FDdEQ7SUFDTCxDQUFDO0lBRUQseUJBQXlCO0lBQ3pCLGFBQWEsQ0FBQyxRQUFrQjtRQUM1QixJQUFJLElBQUksQ0FBQyxnQkFBZ0IsSUFBSSxRQUFRLENBQUMsVUFBVSxLQUFLLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxVQUFVLEVBQUU7WUFDbkYsSUFBSSxDQUFDLGFBQWEsR0FBRyxLQUFLLENBQUM7WUFDM0IsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDO1NBQ2pCO0lBQ0wsQ0FBQztJQUVELGdCQUFnQjtJQUNSLE1BQU07UUFDVixJQUFJLENBQUMsSUFBSSxDQUFDLGFBQWE7WUFBRSxPQUFPO1FBQ2hDLElBQUksQ0FBQyxlQUFlLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDO0lBQ3pDLENBQUM7SUFFRCxrQkFBa0I7SUFDVixNQUFNO1FBQ1YsSUFBSSxDQUFDLGVBQWUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7SUFDMUMsQ0FBQztJQUVELDZDQUE2QztJQUNyQyx3QkFBd0I7UUFDNUIsSUFBSSxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUU7WUFDaEIsT0FBTyxDQUFDLEtBQUssQ0FBQyw4QkFBOEIsQ0FBQyxDQUFDO1lBQzlDLE9BQU87U0FDVjtRQUVELGdCQUFnQjtRQUNoQixNQUFNLFFBQVEsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUM7UUFFaEQsa0RBQWtEO1FBQ2xELElBQUksYUFBYSxHQUFHLEVBQUUsQ0FBQztRQUN2QixJQUFJLFFBQVEsQ0FBQyxTQUFTLElBQUksS0FBSyxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsU0FBUyxDQUFDLEVBQUU7WUFDekQsUUFBUSxDQUFDLFNBQVMsQ0FBQyxPQUFPLENBQUMsQ0FBQyxRQUEwQixFQUFFLEVBQUU7Z0JBQ3RELGFBQWEsSUFBSSxRQUFRLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQyxDQUFDLHNCQUFzQjtZQUNqRSxDQUFDLENBQUMsQ0FBQztTQUNOO2FBQU07WUFDSCxPQUFPLENBQUMsS0FBSyxDQUFDLG1DQUFtQyxDQUFDLENBQUM7U0FDdEQ7UUFFRCw0QkFBNEI7UUFDNUIsSUFBSSxDQUFDLGNBQWMsQ0FBQyxJQUFJLEdBQUcsYUFBYSxDQUFDO0lBQzdDLENBQUM7Q0FDSjtBQXBFRCxxQ0FvRUMifQ==\",\"assetPath\":\"Assets/Scripts/FeedBackUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"billboardCanvas\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"scrollViewText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"jsonFile\",\"type\":\"UnityEngine.TextAsset\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"BillboardUIManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: b77a943e97054649f93473b3a3730e56
+  onlyWriteTrigger: 0
