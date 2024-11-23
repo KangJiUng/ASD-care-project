@@ -1,0 +1,88 @@
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "name": "teacher",
+      "text": "Hello, nice to meet you. Would you like to meet your friends now?",
+      "options": null
+    },
+    {
+      "id": 2,
+      "name": "teacher",
+      "text": "A transfer student came to our class. Can you introduce yourself to the class?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Hi, I'm Jiung. Nice to meet you.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "Say nothing.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Shout loudly.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Why should I?\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": null,
+      "text": "(Students: Clap their hands.)",
+      "options": null
+    },
+    {
+      "id": 4,
+      "name": "teacher",
+      "text": "Jiung, your seat is next to Wansu over there. Raise your hand, Wansu.",
+      "options": null
+    },
+    {
+      "id": 5,
+      "name": "teacher",
+      "text": "Okay. Go take your seat over there :)",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Over there? Okay, teacher.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"No, I won't!\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore the teacher.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Go sit somewhere else I like.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "teacher",
+      "text": "Go and talk to Wansu.",
+      "options": null
+    },
+    {
+      "id": 31,
+      "name": null,
+      "text": "Think again and choose.",
+      "options": null
+    }
+  ]
+}
