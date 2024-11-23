@@ -1,0 +1,59 @@
+fileFormatVersion: 2
+guid: 5491895edbd55495890f0f0e3c5f9167
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Advertisement_General_1 = require(\"ZEPETO.Advertisement.General\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst AD_KEY = \"Monetize_Template\";\r\nclass
+    AdvertisementManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    static
+    get Instance() {\r\n        if (ZEPETO_Script_1.ZepetoScriptBehaviour.op_Equality(this.instance,
+    null)) {\r\n            this.instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(AdvertisementManager));\r\n       
+    }\r\n        return this.instance;\r\n    }\r\n    ReWardTeleport(position, rotation)
+    {\r\n        this.destinationPosiiton = position;\r\n        this.destinationRotation
+    = rotation;\r\n        this.ShowAd(this.rewardTeleport);\r\n    }\r\n    rewardTeleport()
+    {\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.Teleport(this.destinationPosiiton,
+    this.destinationRotation);\r\n    }\r\n    // Method to show an advertisement
+    and specify a reward function to call upon ad completion\r\n    ShowAd(rewardFunction)
+    {\r\n        ZEPETO_Advertisement_General_1.WorldAdvertisement.Show(AD_KEY, //
+    Using the defined advertisement key\r\n        // Using the defined advertisement
+    key\r\n        result => this.rewardTeleport()\r\n        //this.OnAdShowResult(result,
+    rewardFunction) // Handling the ad result and specifying the reward function\r\n       
+    );\r\n    }\r\n    // Method to handle the result of the advertisement show\r\n   
+    OnAdShowResult(result, rewardFunction) {\r\n        if (result === ZEPETO_Advertisement_General_1.AdShowResult.Finished)
+    {\r\n            // If the ad was successfully watched to completion\r\n           
+    console.log(\"Ad show successful; Finished.\");\r\n            rewardFunction();
+    // Call the specified reward function\r\n            return;\r\n        }\r\n       
+    // Variable to store the failure message\r\n        let failMessage;\r\n       
+    // Determine the appropriate failure message based on the ad result\r\n       
+    switch (result) {\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.Failed:\r\n               
+    failMessage = \"Failed\";\r\n                break;\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.Skipped:\r\n               
+    failMessage = \"Skipped\";\r\n                break;\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.NotReady:\r\n               
+    failMessage = \"NotReady\";\r\n                break;\r\n            default:\r\n               
+    failMessage = \"Unknown result\";\r\n                break;\r\n        }\r\n       
+    // Log the failure message\r\n        console.log(`Ad show failed; ${failMessage}.`);\r\n   
+    }\r\n}\r\nexports.default = AdvertisementManager;\r\n// Singleton declaration\r\nAdvertisementManager.instance
+    = null;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWR2ZXJ0aXNlbWVudE1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJBZHZlcnRpc2VtZW50TWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5RTtBQUV6RSwrRUFBZ0Y7QUFDaEYsaURBQXNEO0FBQ3RELDZFQUE0RDtBQUU1RCxNQUFNLE1BQU0sR0FBVyxtQkFBbUIsQ0FBQztBQUUzQyxNQUFxQixvQkFBcUIsU0FBUSxxQ0FBcUI7SUFRNUQsTUFBTSxLQUFLLFFBQVE7UUFDdEIsSUFkQyxxQ0FBcUIsQ0FzRXd1SSxXQUFZLENBeER0d0ksSUFBSSxDQUFDLFFBQVEsRUFBSSxJQUFJLEdBQUU7WUFDdkIsSUFBSSxDQUFDLFFBQVEsR0FBRyx3QkFBVSxDQUFDLGdCQUFnQixTQUFDLG9CQUFvQixFQUFHLENBQUM7U0FDdkU7UUFFRCxPQUFPLElBQUksQ0FBQyxRQUFRLENBQUM7SUFDekIsQ0FBQztJQUVNLGNBQWMsQ0FBQyxRQUFpQixFQUFFLFFBQW9CO1FBQ3pELElBQUksQ0FBQyxtQkFBbUIsR0FBRyxRQUFRLENBQUM7UUFDcEMsSUFBSSxDQUFDLG1CQUFtQixHQUFHLFFBQVEsQ0FBQztRQUNwQyxJQUFJLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxjQUFjLENBQUMsQ0FBQztJQUNyQyxDQUFDO0lBRUQsY0FBYztRQUNWLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsbUJBQW1CLEVBQUUsSUFBSSxDQUFDLG1CQUFtQixDQUFDLENBQUM7SUFDM0gsQ0FBQztJQUVELDJGQUEyRjtJQUMzRixNQUFNLENBQUMsY0FBMEI7UUFDN0IsaURBQWtCLENBQUMsSUFBSSxDQUNuQixNQUFNLEVBQUUsc0NBQXNDO1FBQzlDLEFBRFEsc0NBQXNDO1FBQzlDLE1BQU0sQ0FBQyxFQUFFLENBQUMsSUFBSSxDQUFDLGNBQWMsRUFBRTtRQUMzQiwwR0FBMEc7U0FDakgsQ0FBQztJQUNOLENBQUM7SUFFRCx3REFBd0Q7SUFDeEQsY0FBYyxDQUFDLE1BQW9CLEVBQUUsY0FBMEI7UUFDM0QsSUFBSSxNQUFNLEtBQUssMkNBQVksQ0FBQyxRQUFRLEVBQUU7WUFDbEMsbURBQW1EO1lBQ25ELE9BQU8sQ0FBQyxHQUFHLENBQUMsK0JBQStCLENBQUMsQ0FBQztZQUM3QyxjQUFjLEVBQUUsQ0FBQyxDQUFDLHFDQUFxQztZQUN2RCxPQUFPO1NBQ1Y7UUFFRCx3Q0FBd0M7UUFDeEMsSUFBSSxXQUFtQixDQUFDO1FBQ3hCLG1FQUFtRTtRQUNuRSxRQUFRLE1BQU0sRUFBRTtZQUNaLEtBQUssMkNBQVksQ0FBQyxNQUFNO2dCQUNwQixXQUFXLEdBQUcsUUFBUSxDQUFDO2dCQUN2QixNQUFNO1lBQ1YsS0FBSywyQ0FBWSxDQUFDLE9BQU87Z0JBQ3JCLFdBQVcsR0FBRyxTQUFTLENBQUM7Z0JBQ3hCLE1BQU07WUFDVixLQUFLLDJDQUFZLENBQUMsUUFBUTtnQkFDdEIsV0FBVyxHQUFHLFVBQVUsQ0FBQztnQkFDekIsTUFBTTtZQUNWO2dCQUNJLFdBQVcsR0FBRyxnQkFBZ0IsQ0FBQztnQkFDL0IsTUFBTTtTQUNiO1FBQ0QsMEJBQTBCO1FBQzFCLE9BQU8sQ0FBQyxHQUFHLENBQUMsbUJBQW1CLFdBQVcsR0FBRyxDQUFDLENBQUM7SUFDbkQsQ0FBQzs7QUEvREwsdUNBZ0VDO0FBM0RHLHdCQUF3QjtBQUNULDZCQUFRLEdBQXlCLElBQUksQ0FBQyJ9","assetPath":"Assets/Template_Resources/Modules/Advertisement/AdvertisementManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"destinationPosiiton","type":"UnityEngine.Vector3","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"destinationRotation","type":"UnityEngine.Quaternion","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"AdvertisementManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 62bfbfd907d98a3d4401dec273111e6c
+  onlyWriteTrigger: 0

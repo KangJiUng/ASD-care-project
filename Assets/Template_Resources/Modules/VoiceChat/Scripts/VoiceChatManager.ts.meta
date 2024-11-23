@@ -1,0 +1,116 @@
+fileFormatVersion: 2
+guid: 5338584f864033d4abd61b005e167f1d
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    ZEPETO_Voice_Chat_1 = require(\"ZEPETO.Voice.Chat\");\r\nclass VoiceChatManager
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n       
+    super(...arguments);\r\n        this._voiceBubbleMap = new Map();\r\n       
+    // Method to set the active state of the voice bubble for a given user ID\r\n       
+    // private SetVoiceBubble(userId: string, speechDetected: boolean) {\r\n       
+    //     const chatBubble = this._voiceBubbleMap.get(userId);\r\n        //    
+    chatBubble.SetActive(speechDetected);\r\n        // }\r\n        // Method to
+    create a voice bubble for a given user ID\r\n        // private CreateVoiceBubble(userId:
+    string) {\r\n        //     // Get the head socket of the user''s character\r\n       
+    //     const headSocket = ZepetoPlayers.instance.GetPlayerWithUserId(userId).character.GetSocket(KnowSockets.HEAD_UPPER);\r\n       
+    //     // Instantiate the voice chat bubble prefab at the head socket position\r\n       
+    //     const instanceBubble = Object.Instantiate(this.voiceChatPrefab, headSocket)
+    as GameObject;\r\n        //     // Add the instantiated bubble to the voice
+    bubble map\r\n        //     this._voiceBubbleMap.set(userId, instanceBubble);\r\n       
+    //     instanceBubble.SetActive(false);\r\n        // }\r\n        // LateUpdate()
+    {\r\n        //     // Check if the voice bubble map is empty and return if it
+    is\r\n        //     if (this._voiceBubbleMap.size === 0) {\r\n        //        
+    return;\r\n        //     }\r\n        //     // Iterate through the voice bubble
+    map and update the rotation of each bubble GameObject\r\n        //     this._voiceBubbleMap.forEach((bubbleObject:
+    GameObject) => {\r\n        //         // Set the rotation of the bubble object
+    to match the camera''s parent transform rotation\r\n        //         bubbleObject.transform.rotation
+    = ZepetoPlayers.instance.ZepetoCamera.cameraParent.transform.rotation;\r\n       
+    //     });\r\n        // }\r\n    }\r\n    Start() {\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\r\n            this._myCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\r\n           
+    this.setupVoicePanel();\r\n            this.setupVoiceButtons();\r\n        });\r\n       
+    // Method called when the Voice Chat system is initialized\r\n        ZEPETO_Voice_Chat_1.VoiceChatController.OnInitializedEvent.AddListener(init
+    => {\r\n            ZEPETO_Voice_Chat_1.VoiceChatController.EnterRoom(new ZEPETO_Voice_Chat_1.RoomProperty());\r\n           
+    this.OnInitialized(init);\r\n        });\r\n        // Method called when the
+    Voice Chat room is connected\r\n        ZEPETO_Voice_Chat_1.VoiceChatController.OnRoomConnectedEvent.AddListener(connected
+    => {\r\n            // Set the initial voice type and activate loopback\r\n           
+    ZEPETO_Voice_Chat_1.VoiceChatController.SetVoiceType(this._voiceTypes[0]);\r\n           
+    ZEPETO_Voice_Chat_1.VoiceChatController.EnableLoopback(this._enableLoopback);\r\n           
+    this.OnRoomConnected(connected);\r\n        });\r\n        ZEPETO_Voice_Chat_1.VoiceChatController.OnSpeechDetectedEvent.AddListener((userId,
+    speechDetected) => this.OnSpeechDetected(userId, speechDetected));\r\n    }\r\n   
+    // Set the voice panel UI\r\n    setupVoicePanel() {\r\n        this._openButton.onClick.AddListener(()
+    => {\r\n            this._voicePanel.SetActive(true);\r\n            var image
+    = this._openButton.GetComponent($typeof(UnityEngine_UI_1.Image));\r\n           
+    if (image != null) {\r\n                image.color = new UnityEngine_1.Color(1.0,
+    1.0, 0.0);\r\n            }\r\n        });\r\n        this._closeButton.onClick.AddListener(()
+    => {\r\n            this._voicePanel.SetActive(false);\r\n            var image
+    = this._openButton.GetComponent($typeof(UnityEngine_UI_1.Image));\r\n           
+    if (image != null) {\r\n                image.color = new UnityEngine_1.Color(1.0,
+    1.0, 1.0);\r\n            }\r\n        });\r\n    }\r\n    // Set the voice type
+    and button prefab corresponding to the clicked button index\r\n    setupVoiceButtons()
+    {\r\n        this._voiceTypes.forEach((voiceType, index) => {\r\n           
+    const btn = UnityEngine_1.Object.Instantiate(this._buttonTemplate, this._scrollViewContent.transform);\r\n           
+    const buttonComponent = btn.GetComponent($typeof(UnityEngine_UI_1.Button));\r\n           
+    if (buttonComponent != null) {\r\n                buttonComponent.onClick.AddListener(()
+    => {\r\n                    ZEPETO_Voice_Chat_1.VoiceChatController.SetVoiceType(voiceType);\r\n               
+    });\r\n            }\r\n            else {\r\n                console.log(\"Voice
+    Button instantiation failed.\");\r\n            }\r\n            const textComponent
+    = btn.transform.Find(\"Text\").GetComponent($typeof(UnityEngine_UI_1.Text));\r\n           
+    if (textComponent != null) {\r\n                textComponent.text = this._voiceModeData.get_Item(\"description\")[voiceType];\r\n           
+    }\r\n            const imageComponent = btn.transform.Find(\"Image\").GetComponent($typeof(UnityEngine_UI_1.Image));\r\n           
+    if (imageComponent != null) {\r\n                imageComponent.sprite = this._voiceModeData.get_Item(\"img\")[voiceType];\r\n           
+    }\r\n        });\r\n    }\r\n    // Method to exit the Voice Chat room\r\n   
+    OnDestroy() {\r\n        ZEPETO_Voice_Chat_1.VoiceChatController.OnInitializedEvent.RemoveAllListeners();\r\n       
+    ZEPETO_Voice_Chat_1.VoiceChatController.OnRoomConnectedEvent.RemoveAllListeners();\r\n   
+    }\r\n    // Method about voiechat bubble.\r\n    // Method called when the Voice
+    Chat system is initialized\r\n    OnInitialized(initialized) {\r\n        console.log(\"[VoiceChat]
+    OnInitialized: \");\r\n        this.EnterVoiceChatRoom(1);\r\n    }\r\n    //
+    Method called when the Voice Chat room is connected\r\n    OnRoomConnected(connected)
+    {\r\n        console.log(\"[VoiceChat] OnRoomConnected: \");\r\n    }\r\n   
+    // Method to enter a Voice Chat room based on the given team index\r\n    EnterVoiceChatRoom(teamIndex)
+    {\r\n        console.log(\"[VoiceChat] EnterVoiceChatRoom\");\r\n        // Create
+    a new RoomProperty object and set its properties\r\n        let roomProperty
+    = new ZEPETO_Voice_Chat_1.RoomProperty();\r\n        roomProperty.SetAudioMode(ZEPETO_Voice_Chat_1.AudioMode.Omnidirectional);\r\n       
+    ZEPETO_Voice_Chat_1.VoiceChatController.EnterRoom(roomProperty);\r\n    }\r\n   
+    // Method called when a user''s speech is detected or not detected\r\n    OnSpeechDetected(userId,
+    speechDetected) {\r\n        console.log(\"[VoiceChat] OnSpeechDetected: \" +
+    userId + \", \" + speechDetected);\r\n        // // Check if the user ID is not
+    in the voice bubble map and create a voice bubble if it is not\r\n        //
+    if (!this._voiceBubbleMap.has(userId)) {\r\n        //     this.CreateVoiceBubble(userId);\r\n       
+    // }\r\n        // this.SetVoiceBubble(userId, speechDetected);\r\n    }\r\n}\r\nexports.default
+    = VoiceChatManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVm9pY2VDaGF0TWFuYWdlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlZvaWNlQ2hhdE1hbmFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBOEU7QUFDOUUsNkVBQTBGO0FBQzFGLDZDQUF3RDtBQUN4RCxtREFBcUQ7QUFDckQseURBQTRGO0FBRzVGLE1BQXFCLGdCQUFpQixTQUFRLHFDQUFxQjtJQUFuRTs7UUFxQnNCLG9CQUFlLEdBQTRCLElBQUksR0FBRyxFQUFzQixDQUFDO1FBeUgzRix5RUFBeUU7UUFDekUsb0VBQW9FO1FBQ3BFLDJEQUEyRDtRQUMzRCw0Q0FBNEM7UUFDNUMsSUFBSTtRQUVKLHNEQUFzRDtRQUN0RCw4Q0FBOEM7UUFFOUMscURBQXFEO1FBQ3JELHlIQUF5SDtRQUV6SCw4RUFBOEU7UUFDOUUsaUdBQWlHO1FBRWpHLDZEQUE2RDtRQUM3RCx3REFBd0Q7UUFDeEQsdUNBQXVDO1FBQ3ZDLElBQUk7UUFFSixpQkFBaUI7UUFFakIsb0VBQW9FO1FBQ3BFLDZDQUE2QztRQUM3QyxrQkFBa0I7UUFDbEIsUUFBUTtRQUVSLGdHQUFnRztRQUNoRyxtRUFBbUU7UUFDbkUsbUdBQW1HO1FBQ25HLGlIQUFpSDtRQUNqSCxVQUFVO1FBRVYsSUFBSTtJQUVSLENBQUM7SUF2SkcsS0FBSztRQUNELDJDQUFhLENBQUMsUUFBUSxDQUFDLGtCQUFrQixDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdkQsSUFBSSxDQUFDLFlBQVksR0FBRywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxXQUFXLENBQUMsWUFBWSxDQUFDLFNBQVMsQ0FBQztZQUM5RSxJQUFJLENBQUMsZUFBZSxFQUFFLENBQUM7WUFDdkIsSUFBSSxDQUFDLGlCQUFpQixFQUFFLENBQUM7UUFDN0IsQ0FBQyxDQUFDLENBQUM7UUFFSCwwREFBMEQ7UUFDMUQsdUNBQW1CLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUM5QyxJQUFJLENBQUMsRUFBRTtZQUNILHVD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","assetPath":"Assets/Template_Resources/Modules/VoiceChat/Scripts/VoiceChatManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.UI","name":"_openButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Button
+    to open the VoiceMode panel.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.UI","name":"_closeButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Button
+    to close the VoiceMode panel.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"_voicePanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"The
+    VoiceMode panel.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"_enableLoopback","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Enable
+    the loop-back feature, which allows you to hear your own voice.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"ZEPETO.Voice.Chat","name":"_voiceTypes","type":"ZEPETO.Voice.Chat.VoiceType[]","isArray":true,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Add
+    the desired voice modes in a list format. Original=0, Chipmunk=1, Uncle=2, Echo=3,
+    DeepVoice=4, Robot=5, Dialect=6, Megaphone=7, Beast=8, Machine=9, StrongCurrent=10,
+    Kid=11, Hedgehog=12 \""]},{"name":"SerializeField","args":[]}]},{"assembly":"ZEPETO.Script","name":"_voiceModeData","type":"ZEPETO.Script.ZepetoScriptableObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Connects
+    to a ScriptableObject where VoiceMode data is stored.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"_scrollViewContent","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Assign
+    the ScrollView where the VoiceMode buttons will be placed.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"_buttonTemplate","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Assign
+    the VoiceMode button prefab template.\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"voiceChatPrefab","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"GameObject
+    variable to store the voice chat bubble prefab.\""]},{"name":"SerializeField","args":[]}]}],"name":"VoiceChatManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 547c388b71703388ab99cea3c8a74510
+  onlyWriteTrigger: 0
