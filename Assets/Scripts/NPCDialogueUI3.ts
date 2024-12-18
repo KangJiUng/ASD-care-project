@@ -1,8 +1,9 @@
-import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip } from 'UnityEngine';
+import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip, PlayerPrefs } from 'UnityEngine';
 import { Button, Image } from 'UnityEngine.UI';
 import { TMP_Text } from 'TMPro';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script';
 import { ZepetoCharacter, ZepetoPlayers } from "ZEPETO.Character.Controller";
+import CoinManager from './CoinManager';
 
 interface Option {
     type: string;
@@ -19,6 +20,8 @@ interface Dialogue {
 
 export default class DialogueManager3 extends ZepetoScriptBehaviour {
     public dialogueCanvas: GameObject;
+    public finishModal: GameObject; // Finish 모달 창
+    public finishButton: Button; // Finish 버튼
     public nameText: TMP_Text;
     public dialogueText: TMP_Text;
     public choiceButtons: Button[];
@@ -56,6 +59,7 @@ export default class DialogueManager3 extends ZepetoScriptBehaviour {
         }
 
         this.HideUI();
+        this.finishModal.SetActive(false); // 초기 모달 비활성화
         this.nextButton.onClick.AddListener(() => this.OnNext());
         this.exitButton.onClick.AddListener(() => this.OnExit());
 
@@ -69,6 +73,7 @@ export default class DialogueManager3 extends ZepetoScriptBehaviour {
             this.imageButtons[i].onClick.AddListener(() => this.OnChoiceSelected(buttonIndex));
         }
 
+        this.finishButton.onClick.AddListener(() => this.OnFinishButtonClicked());
         this.HideAllImages(this.uiImages);
         this.HideAllImages(this.uiImagesForID10);
         this.HideAllImages(this.uiImagesForID13);
@@ -96,6 +101,7 @@ export default class DialogueManager3 extends ZepetoScriptBehaviour {
 
     private HideUI() {
         this.dialogueCanvas.SetActive(false);
+        this.finishModal.SetActive(false);
     }
 
     private UpdateDialogue() {
@@ -194,13 +200,15 @@ export default class DialogueManager3 extends ZepetoScriptBehaviour {
 
         const selectedOption = currentDialogue.options[choiceIndex];
         if (selectedOption.required) {
-            this.PlayTrueChoiceSound(); // true 선택 시 사운드 재생
+            // Save result to PlayerPrefs
+            this.SaveResult(currentDialogue.id, this._falseChoiceCount + 1, selectedOption.value);
+            this.PlayTrueChoiceSound();
             this._currentDialogueIndex++;
             this._falseChoiceCount = 0;
             this.UpdateDialogue();
         } else {
             this._falseChoiceCount++;
-            this.PlayFalseChoiceSound(); // false 선택 시 사운드 재생
+            this.PlayFalseChoiceSound();
             if (this._specialDialogue) {
                 this.dialogueText.text = this._specialDialogue.text;
             }
@@ -215,10 +223,52 @@ export default class DialogueManager3 extends ZepetoScriptBehaviour {
         }
     }
 
+    private SaveResult(dialogueId: number, attempts: number, correctAnswer: string) {
+        const result = { dialogueId, attempts, correctAnswer };
+        const existingData = PlayerPrefs.GetString("DialogueResults", "[]");
+        let resultsArray: { dialogueId: number; attempts: number; correctAnswer: string }[] = [];
+
+        try {
+            resultsArray = JSON.parse(existingData);
+        } catch (error) {
+            console.error("Failed to parse existing PlayerPrefs data:", error);
+        }
+
+        resultsArray.push(result);
+        const savedData = JSON.stringify(resultsArray);
+        PlayerPrefs.SetString("DialogueResults", savedData);
+        PlayerPrefs.Save();
+
+        console.log("Result saved:", JSON.stringify(result, null, 2));
+    }
+
     private OnNext() {
         this._currentDialogueIndex++;
         this._falseChoiceCount = 0;
-        this.UpdateDialogue();
+
+        // 마지막 대화인 경우 Finish 모달 표시
+        if (this._currentDialogueIndex >= this._dialogues.length) {
+            this.ShowFinishModal();
+        } else {
+            this.UpdateDialogue();
+        }
+    }
+
+    private ShowFinishModal() {
+        this.dialogueCanvas.SetActive(false); // 대화 창 숨김
+        this.finishModal.SetActive(true); // Finish 모달 표시
+    }
+
+    private OnFinishButtonClicked() {
+        this.finishModal.SetActive(false); // 모달 창 닫기
+        console.log("Finish 버튼 클릭됨 - 코인 지급 시작");
+
+        // 코인 지급
+        CoinManager.Instance.AddCoins(110); // 코인 10개 지급
+
+        // 데이터를 저장
+        CoinManager.Instance["SaveCoins"](); // SaveCoins 메서드 호출 (PlayerPrefs에 반영)
+        console.log("코인 지급 및 데이터 저장 완료");
     }
 
     private OnExit() {

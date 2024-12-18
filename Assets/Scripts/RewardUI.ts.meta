@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 9c9210277174d504cb66b59303723733
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nconst CoinManager_1 = require(\\\"./CoinManager\\\");\\r\\nclass
+    CitySignsDisplayUI extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor()
+    {\\r\\n        super(...arguments);\\r\\n        this._isInCollider = false;\\r\\n       
+    this.rewards = [];\\r\\n        this.rewardIdCounter = 1;\\r\\n        this._keyboardDisabled
+    = false;\\r\\n    }\\r\\n    Start() {\\r\\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\\r\\n            this._zepetoCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    });\\r\\n        this.citySignsCanvas.SetActive(false);\\r\\n        this.parentModePanel.SetActive(false);\\r\\n       
+    this.userModePanel.SetActive(false);\\r\\n        this.unlockModal.SetActive(false);\\r\\n       
+    this.parentModeButton.onClick.AddListener(() => this.SwitchToParentMode());\\r\\n       
+    this.userModeButton.onClick.AddListener(() => this.SwitchToUserMode());\\r\\n       
+    this.addRewardButton.onClick.AddListener(() => this.AddReward());\\r\\n       
+    this.deleteRewardButton.onClick.AddListener(() => this.DeleteReward());\\r\\n       
+    this.escButton.onClick.AddListener(() => {\\r\\n            this.HideUI();\\r\\n           
+    this.EnableKeyboardControls(); // ESC\uB85C \uB2EB\uC744 \uB54C \uD0A4\uBCF4\uB4DC
+    \uD65C\uC131\uD654\\r\\n            this.ResetInputs();\\r\\n        });\\r\\n       
+    this.modeSelectEscButton.onClick.AddListener(() => {\\r\\n            this.HideModeSelectModal();
+    // \uBAA8\uB4DC \uC120\uD0DD ESC \uBC84\uD2BC \uB85C\uC9C1\\r\\n        });\\r\\n       
+    this.parentHomeButton.onClick.AddListener(() => {\\r\\n            this.ReturnToModeSelection();\\r\\n           
+    this.EnableKeyboardControls();\\r\\n        });\\r\\n        this.userHomeButton.onClick.AddListener(()
+    => {\\r\\n            this.ReturnToModeSelection();\\r\\n            this.ResetInputs();\\r\\n       
+    });\\r\\n        this.unlockButton.onClick.AddListener(() => {\\r\\n           
+    this.UnlockReward();\\r\\n            this.ResetInputs();\\r\\n        });\\r\\n       
+    this.closeModalButton.onClick.AddListener(() => this.CloseUnlockModal());\\r\\n       
+    this.LoadRewards();\\r\\n    }\\r\\n    OnTriggerEnter(collider) {\\r\\n       
+    if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            this._isInCollider = true;\\r\\n            this.ShowUI();\\r\\n           
+    this.DisableKeyboardControls(); // \uBAA8\uB2EC \uCC3D\uC774 \uB730 \uB54C \uD0A4\uBCF4\uB4DC
+    \uBE44\uD65C\uC131\uD654\\r\\n        }\\r\\n    }\\r\\n    OnTriggerExit(collider)
+    {\\r\\n        if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            this._isInCollider = false;\\r\\n            this.HideUI();\\r\\n           
+    this.EnableKeyboardControls(); // Collider \uBC16\uC73C\uB85C \uB098\uAC00\uBA74
+    \uD0A4\uBCF4\uB4DC \uD65C\uC131\uD654\\r\\n        }\\r\\n    }\\r\\n    ShowUI()
+    {\\r\\n        if (!this._isInCollider)\\r\\n            return;\\r\\n       
+    this.citySignsCanvas.SetActive(true);\\r\\n        console.log(\\\"City signs
+    canvas is now visible.\\\");\\r\\n    }\\r\\n    HideUI() {\\r\\n        this.citySignsCanvas.SetActive(false);\\r\\n       
+    console.log(\\\"City signs canvas is now hidden.\\\");\\r\\n    }\\r\\n    HideModeSelectModal()
+    {\\r\\n        this.citySignsCanvas.SetActive(false);\\r\\n        console.log(\\\"Mode
+    selection modal hidden.\\\");\\r\\n    }\\r\\n    SwitchToParentMode() {\\r\\n       
+    this.parentModePanel.SetActive(true);\\r\\n        this.userModePanel.SetActive(false);\\r\\n       
+    this.PopulateParentRewardList();\\r\\n    }\\r\\n    SwitchToUserMode() {\\r\\n       
+    this.userModePanel.SetActive(true);\\r\\n        this.parentModePanel.SetActive(false);\\r\\n       
+    this.PopulateUserRewardList();\\r\\n    }\\r\\n    AddReward() {\\r\\n       
+    const name = this.rewardNameInput.text;\\r\\n        const coinCostText = this.coinCostInput.text;\\r\\n       
+    if (!name) {\\r\\n            console.log(\\\"Reward name is empty.\\\");\\r\\n           
+    return;\\r\\n        }\\r\\n        let coinCost = 0;\\r\\n        if (coinCostText
+    && !isNaN(parseInt(coinCostText))) {\\r\\n            coinCost = parseInt(coinCostText);\\r\\n       
+    }\\r\\n        const newReward = { id: this.rewardIdCounter++, name, coinCost
+    };\\r\\n        this.rewards.push(newReward);\\r\\n        this.rewardNameInput.text
+    = \\\"\\\";\\r\\n        this.coinCostInput.text = \\\"\\\";\\r\\n        this.SaveRewards();\\r\\n       
+    this.PopulateParentRewardList();\\r\\n    }\\r\\n    DeleteReward() {\\r\\n       
+    const nameInput = this.rewardNameInput.text.trim();\\r\\n        const coinCostInput
+    = this.coinCostInput.text.trim();\\r\\n        if (!nameInput || !coinCostInput
+    || isNaN(parseInt(coinCostInput))) {\\r\\n            console.log(\\\"Invalid
+    reward name or coin cost.\\\");\\r\\n            this.parentScrollViewText.text
+    = \\\"Invalid input. Please try again.\\\";\\r\\n            return;\\r\\n       
+    }\\r\\n        const coinCost = parseInt(coinCostInput);\\r\\n        // \uC77C\uCE58\uD558\uB294
+    \uBCF4\uC0C1\uC744 \uBAA8\uB450 \uCC3E\uC740 \uB4A4 ID \uAE30\uC900\uC73C\uB85C
+    \uB0B4\uB9BC\uCC28\uC21C \uC815\uB82C\\r\\n        const matchingRewards = this.rewards\\r\\n           
+    .filter((reward) => reward.name.toLowerCase() === nameInput.toLowerCase() &&\\r\\n           
+    reward.coinCost === coinCost)\\r\\n            .sort((a, b) => b.id - a.id);
+    // ID \uB0B4\uB9BC\uCC28\uC21C \uC815\uB82C\\r\\n        if (matchingRewards.length
+    > 0) {\\r\\n            const rewardToDelete = matchingRewards[0]; // \uAC00\uC7A5
+    \uD070 ID \uAC12\uC744 \uAC00\uC9C4 \uBCF4\uC0C1\\r\\n            const rewardIndex
+    = this.rewards.findIndex((reward) => reward.id === rewardToDelete.id);\\r\\n           
+    if (rewardIndex !== -1) {\\r\\n                const deletedReward = this.rewards.splice(rewardIndex,
+    1)[0];\\r\\n                console.log(`Deleted reward: ${JSON.stringify(deletedReward)}`);\\r\\n               
+    this.PopulateParentRewardList();\\r\\n                this.SaveRewards();\\r\\n           
+    }\\r\\n            else {\\r\\n                console.log(\\\"Error: Matching
+    reward was not found in the main list.\\\");\\r\\n            }\\r\\n       
+    }\\r\\n        else {\\r\\n            console.log(\\\"No matching reward found
+    to delete.\\\");\\r\\n            this.parentScrollViewText.text = \\\"No matching
+    reward found. Please try again.\\\";\\r\\n        }\\r\\n    }\\r\\n    PopulateParentRewardList()
+    {\\r\\n        if (this.rewards.length === 0) {\\r\\n            this.parentScrollViewText.text
+    = \\\"No rewards available.\\\";\\r\\n            return;\\r\\n        }\\r\\n       
+    const rewardText = this.rewards\\r\\n            .map((reward) => {\\r\\n           
+    const coinCost = reward.coinCost ?? 0;\\r\\n            return `\u2022 \\\"${reward.name}\\\"
+    - ${coinCost} Coins`;\\r\\n        })\\r\\n            .join(\\\"\\\\n\\\");\\r\\n       
+    this.parentScrollViewText.text = rewardText;\\r\\n        console.log(\\\"Parent
+    Reward List Updated:\\\\n\\\", rewardText);\\r\\n    }\\r\\n    PopulateUserRewardList()
+    {\\r\\n        if (this.rewards.length === 0) {\\r\\n            this.userScrollViewText.text
+    = \\\"No rewards available.\\\";\\r\\n            return;\\r\\n        }\\r\\n       
+    const rewardText = this.rewards\\r\\n            .map((reward) => {\\r\\n           
+    const coinCost = reward.coinCost ?? 0;\\r\\n            return `${reward.id}.
+    \\\"${reward.name}\\\" - ${coinCost} Coins`;\\r\\n        })\\r\\n           
+    .join(\\\"\\\\n\\\");\\r\\n        this.userScrollViewText.text = rewardText;\\r\\n       
+    console.log(\\\"User Reward List Updated:\\\\n\\\", rewardText);\\r\\n    }\\r\\n   
+    UnlockReward() {\\r\\n        const inputIdText = this.rewardIdInput.text;\\r\\n       
+    if (!inputIdText || isNaN(parseInt(inputIdText))) {\\r\\n            console.log(\\\"Invalid
+    reward ID.\\\");\\r\\n            this.unlockModalText.text = \\\"Invalid reward
+    ID. Please enter a valid number.\\\";\\r\\n            this.unlockModal.SetActive(true);\\r\\n           
+    return;\\r\\n        }\\r\\n        const rewardId = parseInt(inputIdText);\\r\\n       
+    const reward = this.rewards.find(r => r.id === rewardId);\\r\\n        if (reward)
+    {\\r\\n            // \uBCF4\uC0C1 \uCF54\uC2A4\uD2B8\uAC00 \uC124\uC815\uB418\uC5B4
+    \uC788\uC744 \uACBD\uC6B0 \uCF54\uC778 \uCC28\uAC10\\r\\n            if (reward.coinCost
+    !== undefined && reward.coinCost > 0) {\\r\\n                if (CoinManager_1.default.Instance.SubtractCoins(reward.coinCost))
+    {\\r\\n                    console.log(`\\\"${reward.name}\\\" unlocked! Coins
+    deducted: ${reward.coinCost}`);\\r\\n                    this.unlockModalText.text
+    = `\\\"${reward.name}\\\" has been unlocked!`;\\r\\n                    // \uC800\uC7A5\uB41C
+    \uCF54\uC778 \uB370\uC774\uD130\uB97C \uC5C5\uB370\uC774\uD2B8\\r\\n                   
+    UnityEngine_1.PlayerPrefs.SetInt(\\\"Coins\\\", CoinManager_1.default.Instance.GetCoins());\\r\\n                   
+    UnityEngine_1.PlayerPrefs.Save();\\r\\n                    console.log(\\\"Coin
+    data updated in PlayerPrefs.\\\");\\r\\n                }\\r\\n               
+    else {\\r\\n                    console.log(\\\"Not enough coins to unlock the
+    reward.\\\");\\r\\n                    this.unlockModalText.text = `Not enough
+    coins to unlock \\\"${reward.name}\\\".`;\\r\\n                }\\r\\n           
+    }\\r\\n            else {\\r\\n                console.log(`\\\"${reward.name}\\\"
+    unlocked with no coin cost.`);\\r\\n                this.unlockModalText.text
+    = `\\\"${reward.name}\\\" has been unlocked!`;\\r\\n            }\\r\\n       
+    }\\r\\n        else {\\r\\n            console.log(`Reward ID ${rewardId} not
+    found.`);\\r\\n            this.unlockModalText.text = `No reward found with
+    ID ${rewardId}.`;\\r\\n        }\\r\\n        this.unlockModal.SetActive(true);\\r\\n   
+    }\\r\\n    CloseUnlockModal() {\\r\\n        this.unlockModal.SetActive(false);\\r\\n   
+    }\\r\\n    ReturnToModeSelection() {\\r\\n        this.parentModePanel.SetActive(false);\\r\\n       
+    this.userModePanel.SetActive(false);\\r\\n        console.log(\\\"Returned to
+    initial canvas\\\");\\r\\n    }\\r\\n    SaveRewards() {\\r\\n        try {\\r\\n           
+    const rewardsJson = JSON.stringify(this.rewards);\\r\\n            UnityEngine_1.PlayerPrefs.SetString(\\\"Rewards\\\",
+    rewardsJson);\\r\\n            UnityEngine_1.PlayerPrefs.SetInt(\\\"RewardCounter\\\",
+    this.rewardIdCounter);\\r\\n            UnityEngine_1.PlayerPrefs.Save();\\r\\n           
+    console.log(\\\"Rewards saved successfully.\\\");\\r\\n        }\\r\\n       
+    catch (error) {\\r\\n            console.error(\\\"Error saving rewards:\\\",
+    error);\\r\\n        }\\r\\n    }\\r\\n    LoadRewards() {\\r\\n        try {\\r\\n           
+    const rewardsJson = UnityEngine_1.PlayerPrefs.GetString(\\\"Rewards\\\", \\\"[]\\\");\\r\\n           
+    this.rewards = JSON.parse(rewardsJson);\\r\\n            this.rewards.forEach((reward,
+    index) => {\\r\\n                if (!reward.name || reward.coinCost === undefined)
+    {\\r\\n                    console.error(`Invalid reward at index ${index}:`,
+    reward);\\r\\n                }\\r\\n            });\\r\\n            this.rewardIdCounter
+    = UnityEngine_1.PlayerPrefs.GetInt(\\\"RewardCounter\\\", 1);\\r\\n           
+    console.log(\\\"Rewards loaded successfully:\\\", this.rewards);\\r\\n       
+    }\\r\\n        catch (error) {\\r\\n            console.error(\\\"Error loading
+    rewards:\\\", error);\\r\\n        }\\r\\n    }\\r\\n    ResetInputs() {\\r\\n       
+    this.rewardNameInput.text = \\\"\\\";\\r\\n        this.coinCostInput.text =
+    \\\"\\\";\\r\\n        this.rewardIdInput.text = \\\"\\\";\\r\\n        console.log(\\\"Inputs
+    have been reset.\\\");\\r\\n    }\\r\\n    DisableKeyboardControls() {\\r\\n       
+    this._keyboardDisabled = true;\\r\\n        console.log(\\\"Keyboard controls
+    disabled.\\\");\\r\\n    }\\r\\n    EnableKeyboardControls() {\\r\\n        this._keyboardDisabled
+    = false;\\r\\n        console.log(\\\"Keyboard controls enabled.\\\");\\r\\n   
+    }\\r\\n    Update() {\\r\\n        if (this._keyboardDisabled) {\\r\\n           
+    UnityEngine_1.Input.ResetInputAxes();\\r\\n        }\\r\\n    }\\r\\n}\\r\\nexports.default
+    = CitySignsDisplayUI;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmV3YXJkVUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZXdhcmRVSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUEyRjtBQUczRixpREFBc0Q7QUFDdEQsNkVBQTZFO0FBQzdFLCtDQUF3QztBQU94QyxNQUFxQixrQkFBbUIsU0FBUSxxQ0FBcUI7SUFBckU7O1FBdUJZLGtCQUFhLEdBQVksS0FBSyxDQUFDO1FBRS9CLFlBQU8sR0FBYSxFQUFFLENBQUM7UUFDdkIsb0JBQWUsR0FBVyxDQUFDLENBQUM7UUFDNUIsc0JBQWlCLEdBQVksS0FBSyxDQUFDO0lBMlIvQyxDQUFDO0lBelJHLEtBQUs7UUFDRCwyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxrQkFBa0IsQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQ3ZELElBQUksQ0FBQyxnQkFBZ0IsR0FBRywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxXQUFXLENBQUMsWUFBWSxDQUFDLFNBQVMsQ0FBQztRQUN0RixDQUFDLENBQUMsQ0FBQztRQUVILElBQUksQ0FBQyxlQUFlLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3RDLElBQUksQ0FBQyxlQUFlLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3RDLElBQUksQ0FBQyxhQUFhLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3BDLElBQUksQ0FBQyxXQUFXLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBRWxDLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxrQkFBa0IsRUFBRSxDQUFDLENBQUM7UUFDM0UsSUFBSSxDQUFDLGNBQWMsQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxnQkFBZ0IsRUFBRSxDQUFDLENBQUM7UUFDdkUsSUFBSSxDQUFDLGVBQWUsQ0FBQyxPQUFP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\",\"assetPath\":\"Assets/Scripts/RewardUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"citySignsCanvas\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"parentModeButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"userModeButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"escButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"modeSelectEscButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"parentHomeButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"userHomeButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"parentModePanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"userModePanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"rewardNameInput\",\"type\":\"TMPro.TMP_InputField\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"coinCostInput\",\"type\":\"TMPro.TMP_InputField\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"addRewardButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"deleteRewardButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"parentScrollViewText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"userScrollViewText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"rewardIdInput\",\"type\":\"TMPro.TMP_InputField\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"unlockButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"unlockModal\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"unlockModalText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"closeModalButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"CitySignsDisplayUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: f07d98d752947e45baf3d6f5da24b4a1
+  onlyWriteTrigger: 0

@@ -1,4 +1,4 @@
-import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip } from 'UnityEngine';
+import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip, PlayerPrefs } from 'UnityEngine';
 import { Button, Image } from 'UnityEngine.UI';
 import { TMP_Text } from 'TMPro';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script';
@@ -40,6 +40,8 @@ export default class DialogueManager2 extends ZepetoScriptBehaviour {
     private _zepetoCharacter: ZepetoCharacter;
     private _falseChoiceCount: number = 0;
 
+    private savedResults: { dialogueId: number; attempts: number; correctAnswer: string }[] = [];
+
     Start() {
         ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(() => {
             this._zepetoCharacter = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;
@@ -73,6 +75,9 @@ export default class DialogueManager2 extends ZepetoScriptBehaviour {
         }
 
         this.HideAllUIImages();
+
+        // 기존 저장된 데이터를 로드
+        this.LoadResults();
     }
 
     OnTriggerEnter(collider: Collider) {
@@ -184,6 +189,7 @@ export default class DialogueManager2 extends ZepetoScriptBehaviour {
 
         const selectedOption = currentDialogue.options[choiceIndex];
         if (selectedOption.required) {
+            this.SaveResult(currentDialogue.id, this._falseChoiceCount + 1, selectedOption.value);
             this.PlayTrueChoiceSound(); // true 선택 시 사운드 재생
             this._currentDialogueIndex++;
             this._falseChoiceCount = 0;
@@ -202,6 +208,42 @@ export default class DialogueManager2 extends ZepetoScriptBehaviour {
             }
         }
     }
+
+    private SaveResult(dialogueId: number, attempts: number, correctAnswer: string) {
+        const result = { dialogueId, attempts, correctAnswer };
+
+        // 기존 데이터 로드 후 결과 추가
+        const existingData = PlayerPrefs.GetString("DialogueResults", "[]");
+        let resultsArray: { dialogueId: number; attempts: number; correctAnswer: string }[] = [];
+
+        try {
+            resultsArray = JSON.parse(existingData);
+        } catch (error) {
+            console.error("Failed to parse existing PlayerPrefs data:", error);
+        }
+
+        resultsArray.push(result);
+
+        // 데이터 저장
+        const savedData = JSON.stringify(resultsArray);
+        PlayerPrefs.SetString("DialogueResults", savedData);
+        PlayerPrefs.Save();
+
+        console.log("Result saved:", JSON.stringify(result, null, 2));
+        console.log("All results:", JSON.stringify(resultsArray, null, 2));
+    }
+
+    private LoadResults() {
+        const savedData = PlayerPrefs.GetString("DialogueResults", "[]");
+        try {
+            this.savedResults = JSON.parse(savedData);
+            console.log("Loaded Results:", JSON.stringify(this.savedResults, null, 2));
+        } catch (error) {
+            console.error("Failed to load results from PlayerPrefs:", error);
+            this.savedResults = []; // 기본값으로 초기화
+        }
+    }
+
 
     private OnNext() {
         this._currentDialogueIndex++;

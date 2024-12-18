@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+guid: 7d5ee85ca28894645b7c8cba9c9f04ce
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst TMPro_1 = require(\\\"TMPro\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst CoinManager_1 =
+    require(\\\"./CoinManager\\\");\\r\\nclass CoinDisplay extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    Start() {\\r\\n        // CoinManager\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u033A\uFFFD\u01AE \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n       
+    CoinManager_1.default.Instance.OnCoinsChanged = (newCoins) => {\\r\\n           
+    this.UpdateCoinText(newCoins);\\r\\n        };\\r\\n        // \uFFFD\u02B1\uFFFD
+    UI \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u01AE\\r\\n        this.UpdateCoinText(CoinManager_1.default.Instance.GetCoins());\\r\\n   
+    }\\r\\n    UpdateCoinText(newCoins) {\\r\\n        if (this.coinText) {\\r\\n           
+    this.coinText.text = `${newCoins}`;\\r\\n        }\\r\\n        else {\\r\\n           
+    console.error(\\\"coinText field is not assigned in the Unity editor.\\\");\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = CoinDisplay;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29pblVJLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQ29pblVJLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaUNBQWlDO0FBQ2pDLGlEQUFzRDtBQUN0RCwrQ0FBd0M7QUFFeEMsTUFBcUIsV0FBWSxTQUFRLHFDQUFxQjtJQUcxRCxLQUFLO1FBQ0Qsb0NBQW9DO1FBQ3BDLHFCQUFXLENBQUMsUUFBUSxDQUFDLGNBQWMsR0FBRyxDQUFDLFFBQWdCLEVBQUUsRUFBRTtZQUN2RCxJQUFJLENBQUMsY0FBYyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBQ2xDLENBQUMsQ0FBQztRQUVGLGlCQUFpQjtRQUNqQixJQUFJLENBQUMsY0FBYyxDQUFDLHFCQUFXLENBQUMsUUFBUSxDQUFDLFFBQVEsRUFBRSxDQUFDLENBQUM7SUFDekQsQ0FBQztJQUVPLGNBQWMsQ0FBQyxRQUFnQjtRQUNuQyxJQUFJLElBQUksQ0FBQyxRQUFRLEVBQUU7WUFDZixJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksR0FBRyxHQUFHLFFBQVEsRUFBRSxDQUFDO1NBQ3RDO2FBQU07WUFDSCxPQUFPLENBQUMsS0FBSyxDQUFDLHFEQUFxRCxDQUFDLENBQUM7U0FDeEU7SUFDTCxDQUFDO0NBQ0o7QUFwQkQsOEJBb0JDIn0=\",\"assetPath\":\"Assets/Scripts/CoinUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"coinText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"CoinDisplay\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 3a645bcd5e1197d9ac21086f8ac1ff0c
+  onlyWriteTrigger: 0

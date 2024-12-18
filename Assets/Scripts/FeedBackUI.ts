@@ -1,35 +1,35 @@
-import { GameObject, Collider, TextAsset } from 'UnityEngine';
+import { GameObject, Collider } from 'UnityEngine';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script';
 import { ZepetoCharacter, ZepetoPlayers } from "ZEPETO.Character.Controller";
 import { TMP_Text } from 'TMPro';
+import { PlayerPrefs } from 'UnityEngine';
 
 export default class BillboardUIManager extends ZepetoScriptBehaviour {
-    public billboardCanvas: GameObject; // UI ¿ÀºêÁ§Æ® (Àü±¤ÆÇ UI)
-    public scrollViewText: TMP_Text; // ScrollView ³» ÅØ½ºÆ® ¿µ¿ª
-    public jsonFile: TextAsset; // JSON ÆÄÀÏ (Unity Editor¿¡¼­ ¿¬°á)
-    private _zepetoCharacter: ZepetoCharacter | null = null; // Ä³¸¯ÅÍ ÂüÁ¶
-    private _isInCollider: boolean = false; // Ä³¸¯ÅÍ°¡ Collider ¾È¿¡ ÀÖ´ÂÁö È®ÀÎ
+    public billboardCanvas: GameObject; // UI ì˜¤ë¸Œì íŠ¸ (ì „ê´‘íŒ UI)
+    public scrollViewText: TMP_Text; // ScrollView ë‚´ í…ìŠ¤íŠ¸ ì˜ì—­
+    private _zepetoCharacter: ZepetoCharacter | null = null; // ìºë¦­í„° ì°¸ì¡°
+    private _isInCollider: boolean = false; // ìºë¦­í„°ê°€ Collider ì•ˆì— ìˆëŠ”ì§€ í™•ì¸
 
     Start() {
-        // ·ÎÄÃ ÇÃ·¹ÀÌ¾î Ãß°¡ ½Ã Ä³¸¯ÅÍ ÂüÁ¶ ¼³Á¤
+        // ë¡œì»¬ í”Œë ˆì´ì–´ ì¶”ê°€ ì‹œ ìºë¦­í„° ì°¸ì¡° ì„¤ì •
         ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(() => {
             this._zepetoCharacter = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;
         });
 
-        // ½ÃÀÛ ½Ã UI ºñÈ°¼ºÈ­
+        // ì‹œì‘ ì‹œ UI ë¹„í™œì„±í™”
         this.HideUI();
     }
 
-    // Collider ¾ÈÀ¸·Î µé¾î¿ÔÀ» ¶§
+    // Collider ì•ˆìœ¼ë¡œ ë“¤ì–´ì™”ì„ ë•Œ
     OnTriggerEnter(collider: Collider) {
         if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject) {
             this._isInCollider = true;
             this.ShowUI();
-            this.LoadJSONDataToScrollView(); // JSON µ¥ÀÌÅÍ ·Îµå
+            this.LoadFeedbackData(); // PlayerPrefs ë°ì´í„° ë¡œë“œ ë° í‘œì‹œ
         }
     }
 
-    // Collider¿¡¼­ ³ª°¬À» ¶§
+    // Colliderì—ì„œ ë‚˜ê°”ì„ ë•Œ
     OnTriggerExit(collider: Collider) {
         if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject) {
             this._isInCollider = false;
@@ -37,38 +37,47 @@ export default class BillboardUIManager extends ZepetoScriptBehaviour {
         }
     }
 
-    // UI È°¼ºÈ­ ¸Ş¼­µå
+    // UI í™œì„±í™” ë©”ì„œë“œ
     private ShowUI() {
         if (!this._isInCollider) return;
         this.billboardCanvas.SetActive(true);
     }
 
-    // UI ºñÈ°¼ºÈ­ ¸Ş¼­µå
+    // UI ë¹„í™œì„±í™” ë©”ì„œë“œ
     private HideUI() {
         this.billboardCanvas.SetActive(false);
     }
 
-    // JSON µ¥ÀÌÅÍ ·Îµå ¹× ScrollView ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
-    private LoadJSONDataToScrollView() {
-        if (!this.jsonFile) {
-            console.error("JSON ÆÄÀÏÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+    // PlayerPrefs ë°ì´í„°ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ScrollView í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
+    private LoadFeedbackData() {
+        // PlayerPrefsì—ì„œ ì €ì¥ëœ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
+        const savedData = PlayerPrefs.GetString("DialogueResults", "[]");
+        const results = JSON.parse(savedData);
+
+        // ë°ì´í„°ê°€ ì—†ì„ ê²½ìš° ì²˜ë¦¬
+        if (!results || results.length === 0) {
+            console.warn("ì €ì¥ëœ ê²°ê³¼ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
+            this.scrollViewText.text = "No feedback available.";
             return;
         }
 
-        // JSON ÆÄÀÏ ÆÄ½Ì
-        const jsonData = JSON.parse(this.jsonFile.text);
+        // í”¼ë“œë°± í…ìŠ¤íŠ¸ ìƒì„±
+        let feedbackText = "â€¢ Simulation Feedback\n";
 
-        // JSON µ¥ÀÌÅÍÀÇ text ³»¿ëÀ» ScrollView ÅØ½ºÆ®·Î º¯È¯
-        let formattedText = "";
-        if (jsonData.feedbacks && Array.isArray(jsonData.feedbacks)) {
-            jsonData.feedbacks.forEach((feedback: { text: string }) => {
-                formattedText += feedback.text + "\n"; // JSONÀÇ text ÇÊµå Ãß°¡
-            });
-        } else {
-            console.error("JSON µ¥ÀÌÅÍ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
-        }
+        results.forEach((result: { dialogueId: number; attempts: number; correctAnswer: string }, index: number) => {
+            // ì •ë‹µ ì—¬ë¶€ ë° ì‹œë„ íšŸìˆ˜ì— ë”°ë¼ í…ìŠ¤íŠ¸ ìƒì„±
+            const dialogueText = `${result.correctAnswer}`;
+            if (result.attempts <= 4) {
+                feedbackText += `${index + 1}. ${dialogueText} â€¢â€¢â€¢ The right choice in ${result.attempts}/4 times\n`;
+            } else {
+                feedbackText += `${index + 1}. ${dialogueText} â€¢â€¢â€¢ Failure to make the right choice\n`;
+            }
+        });
 
-        // ScrollViewÀÇ ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
-        this.scrollViewText.text = formattedText;
+        // ScrollViewì˜ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
+        this.scrollViewText.text = feedbackText;
+
+        // ë””ë²„ê¹… ë¡œê·¸
+        console.log("Updated Feedback Text:\n", feedbackText);
     }
 }

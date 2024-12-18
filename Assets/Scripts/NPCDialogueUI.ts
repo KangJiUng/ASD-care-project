@@ -1,4 +1,4 @@
-import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip } from 'UnityEngine';
+import { GameObject, TextAsset, Collider, Resources, Sprite, Vector2, WaitForSeconds, AudioSource, AudioClip, PlayerPrefs } from 'UnityEngine';
 import { Button, Image } from 'UnityEngine.UI';
 import { TMP_Text } from 'TMPro';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script';
@@ -26,9 +26,9 @@ export default class DialogueManager extends ZepetoScriptBehaviour {
     public nextButton: Button;
     public exitButton: Button;
     public uiImages: GameObject[];
-    public audioSource: AudioSource; // 오디오 재생을 위한 AudioSource 추가
-    public falseChoiceClip: AudioClip; // false 선택 시 재생할 mp3 클립 추가
-    public trueChoiceClip: AudioClip; // true 선택 시 재생할 mp3 클립 추가
+    public audioSource: AudioSource;
+    public falseChoiceClip: AudioClip;
+    public trueChoiceClip: AudioClip;
 
     private _specialDialogue: Dialogue | null = null;
     private _dialogues: Dialogue[] = [];
@@ -36,6 +36,8 @@ export default class DialogueManager extends ZepetoScriptBehaviour {
     private _isInCollider: boolean = false;
     private _zepetoCharacter: ZepetoCharacter;
     private _falseChoiceCount: number = 0;
+
+    private savedResults: { dialogueId: number; attempts: number; correctAnswer: string }[] = [];
 
     Start() {
         ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(() => {
@@ -177,13 +179,14 @@ export default class DialogueManager extends ZepetoScriptBehaviour {
 
         const selectedOption = currentDialogue.options[choiceIndex];
         if (selectedOption.required) {
-            this.PlayTrueChoiceSound(); // true 선택 시 사운드 재생
+            this.SaveResult(currentDialogue.id, this._falseChoiceCount + 1, selectedOption.value);
+            this.PlayTrueChoiceSound();
             this._currentDialogueIndex++;
             this._falseChoiceCount = 0;
             this.UpdateDialogue();
         } else {
             this._falseChoiceCount++;
-            this.PlayFalseChoiceSound(); // false 선택 시 사운드 재생
+            this.PlayFalseChoiceSound();
             if (this._specialDialogue) {
                 this.dialogueText.text = this._specialDialogue.text;
             }
@@ -195,6 +198,34 @@ export default class DialogueManager extends ZepetoScriptBehaviour {
             }
         }
     }
+
+    private SaveResult(dialogueId: number, attempts: number, correctAnswer: string) {
+        const result = { dialogueId, attempts, correctAnswer };
+        this.savedResults.push(result);
+
+        const savedData = JSON.stringify(this.savedResults);
+        PlayerPrefs.SetString("DialogueResults", savedData);
+        PlayerPrefs.Save();
+
+        console.log("Result saved:", JSON.stringify(result, null, 2)); // 객체를 JSON 포맷으로 출력
+        console.log("All saved results:", JSON.stringify(this.savedResults, null, 2)); // 저장된 모든 결과 출력
+    }
+
+    private LoadAndLogResults() {
+        const savedData = PlayerPrefs.GetString("DialogueResults", "[]");
+        const results = JSON.parse(savedData);
+
+        console.log("Loaded Results:", JSON.stringify(results, null, 2)); // 저장된 데이터를 JSON 포맷으로 출력
+
+        if (Array.isArray(results) && results.length > 0) {
+            results.forEach((result, index) => {
+                console.log(`Result ${index + 1}:`, JSON.stringify(result, null, 2));
+            });
+        } else {
+            console.log("No results found in PlayerPrefs.");
+        }
+    }
+
 
     private OnNext() {
         this._currentDialogueIndex++;
