@@ -1,0 +1,49 @@
+fileFormatVersion: 2
+guid: d9d048c22dbb0774e931ddf9feb0a218
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nclass
+    CoinManager {\\r\\n    constructor() {\\r\\n        this.coins = 0;\\r\\n       
+    // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u033A\uFFFD\u01AE\\r\\n       
+    this.OnCoinsChanged = null;\\r\\n        // PlayerPrefs\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD \uFFFD\u03B5\uFFFD\\r\\n       
+    this.coins = UnityEngine_1.PlayerPrefs.GetInt(\\\"Coins\\\", 0);\\r\\n    }\\r\\n   
+    static get Instance() {\\r\\n        if (!this.instance) {\\r\\n            this.instance
+    = new CoinManager();\\r\\n        }\\r\\n        return this.instance;\\r\\n   
+    }\\r\\n    GetCoins() {\\r\\n        return this.coins;\\r\\n    }\\r\\n    AddCoins(amount)
+    {\\r\\n        this.coins += amount;\\r\\n        this.SaveCoins();\\r\\n       
+    this.NotifyCoinsChanged(); // \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\u02F8\uFFFD\\r\\n    }\\r\\n    SubtractCoins(amount) {\\r\\n        if
+    (this.coins >= amount) {\\r\\n            this.coins -= amount;\\r\\n           
+    this.SaveCoins();\\r\\n            this.NotifyCoinsChanged(); // \uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\u02F8\uFFFD\\r\\n            return true; //
+    \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\\r\\n       
+    }\\r\\n        return false; // \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\\r\\n    }\\r\\n    SaveCoins() {\\r\\n        UnityEngine_1.PlayerPrefs.SetInt(\\\"Coins\\\",
+    this.coins);\\r\\n        UnityEngine_1.PlayerPrefs.Save();\\r\\n    }\\r\\n   
+    NotifyCoinsChanged() {\\r\\n        if (this.OnCoinsChanged) {\\r\\n           
+    this.OnCoinsChanged(this.coins); // \uFFFD\u033A\uFFFD\u01AE \u0223\uFFFD\uFFFD\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = CoinManager;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29pbk1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJDb2luTWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUEwQztBQUUxQyxNQUFxQixXQUFXO0lBTzVCO1FBTFEsVUFBSyxHQUFXLENBQUMsQ0FBQztRQUUxQixpQkFBaUI7UUFDVixtQkFBYyxHQUErQixJQUFJLENBQUM7UUFHckQsbUNBQW1DO1FBQ25DLElBQUksQ0FBQyxLQUFLLEdBQUcseUJBQVcsQ0FBQyxNQUFNLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQyxDQUFDO0lBQ2hELENBQUM7SUFFTSxNQUFNLEtBQUssUUFBUTtRQUN0QixJQUFJLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRTtZQUNoQixJQUFJLENBQUMsUUFBUSxHQUFHLElBQUksV0FBVyxFQUFFLENBQUM7U0FDckM7UUFDRCxPQUFPLElBQUksQ0FBQyxRQUFRLENBQUM7SUFDekIsQ0FBQztJQUVNLFFBQVE7UUFDWCxPQUFPLElBQUksQ0FBQyxLQUFLLENBQUM7SUFDdEIsQ0FBQztJQUVNLFFBQVEsQ0FBQyxNQUFjO1FBQzFCLElBQUksQ0FBQyxLQUFLLElBQUksTUFBTSxDQUFDO1FBQ3JCLElBQUksQ0FBQyxTQUFTLEVBQUUsQ0FBQztRQUNqQixJQUFJLENBQUMsa0JBQWtCLEVBQUUsQ0FBQyxDQUFDLGdCQUFnQjtJQUMvQyxDQUFDO0lBRU0sYUFBYSxDQUFDLE1BQWM7UUFDL0IsSUFBSSxJQUFJLENBQUMsS0FBSyxJQUFJLE1BQU0sRUFBRTtZQUN0QixJQUFJLENBQUMsS0FBSyxJQUFJLE1BQU0sQ0FBQztZQUNyQixJQUFJLENBQUMsU0FBUyxFQUFFLENBQUM7WUFDakIsSUFBSSxDQUFDLGtCQUFrQixFQUFFLENBQUMsQ0FBQyxnQkFBZ0I7WUFDM0MsT0FBTyxJQUFJLENBQUMsQ0FBQyxrQkFBa0I7U0FDbEM7UUFDRCxPQUFPLEtBQUssQ0FBQyxDQUFDLG9CQUFvQjtJQUN0QyxDQUFDO0lBRU8sU0FBUztRQUNiLHlCQUFXLENBQUMsTUFBTSxDQUFDLE9BQU8sRUFBRSxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDeEMseUJBQVcsQ0FBQyxJQUFJLEVBQUUsQ0FBQztJQUN2QixDQUFDO0lBRU8sa0JBQWtCO1FBQ3RCLElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRTtZQUNyQixJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLFdBQVc7U0FDL0M7SUFDTCxDQUFDO0NBQ0o7QUFqREQsOEJBaURDIn0=\",\"assetPath\":\"Assets/Scripts/CoinManager.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"\",\"name\":\"OnCoinsChanged\",\"type\":\"__type\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"CoinManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 39d4c8f60dd640e8422a04509a9d3a81
+  onlyWriteTrigger: 0

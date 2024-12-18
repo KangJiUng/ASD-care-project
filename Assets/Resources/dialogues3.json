@@ -1,0 +1,184 @@
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "name": null,
+      "text": "(P.E. Class)",
+      "options": null
+    },
+    {
+      "id": 2,
+      "name": "Wansu",
+      "text": "I'll get the badminton rackets! Wait a second.",
+      "options": null
+    },
+    {
+      "id": 3,
+      "name": "me",
+      "text": "Okay.",
+      "options": null
+    },
+    {
+      "id": 4,
+      "name": "P.E. teacher",
+      "text": "Hello? I don't think I've seen you before. What's your name?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"My name is Jiung.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"Obviously!\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"My name is not 'What'!\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore the question.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "P.E. teacher",
+      "text": "Oh, you're Jiung! Nice to meet you.",
+      "options": null
+    },
+    {
+      "id": 6,
+      "name": "me",
+      "text": "Nice to meet you too.",
+      "options": null
+    },
+    {
+      "id": 7,
+      "name": "P.E. teacher",
+      "text": "It's free time today. What activity are you doing?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"I don't know.\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I'll play badminton with Wansu.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "Ignore the question.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"I'll do what I want.\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "P.E. teacher",
+      "text": "Alright then! Have fun!",
+      "options": null
+    },
+    {
+      "id": 9,
+      "name": null,
+      "text": "(Wansu returns.)",
+      "options": null
+    },
+    {
+      "id": 10,
+      "name": "Wansu",
+      "text": "Here are the rackets!",
+      "options": null
+    },
+    {
+      "id": 11,
+      "name": "Wansu",
+      "text": "I asked two more people to join because it's more fun with four than with two. Is that okay?",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Why do you decide everything?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Am I included in the four?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"That's fine! Let's start playing!\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"You all play. I don't like crowds.\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": null,
+      "text": "(After Playing Badminton)",
+      "options": null
+    },
+    {
+      "id": 13,
+      "name": "seunghwan",
+      "text": "You’re good at badminton! It was a great game.",
+      "options": null
+    },
+    {
+      "id": 14,
+      "name": "seunghwan",
+      "text": "Let's play together next time!",
+      "options": [
+        {
+          "type": "text",
+          "value": "\"Do I have to play again?\"",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "Ignore seunghwan.",
+          "required": false
+        },
+        {
+          "type": "text",
+          "value": "\"Thanks! I had a lot of fun too. Let's play again.\"",
+          "required": true
+        },
+        {
+          "type": "text",
+          "value": "\"I don't like competition.\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "P.E. teacher",
+      "text": "Alright, everyone, put the equipment back and head to the classroom!",
+      "options": null
+    },
+    {
+      "id": 31,
+      "name": null,
+      "text": "Think again and choose.",
+      "options": null
+    }
+  ]
+}

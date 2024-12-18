@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: 8572142e2d2719649af5e89e2621038a
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst
+    UnityEngine_UI_1 = require(\\\"UnityEngine.UI\\\");\\r\\nconst TMPro_1 = require(\\\"TMPro\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nclass DialogueManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        this._specialDialogue = null;\\r\\n       
+    this._dialogues = [];\\r\\n        this._currentDialogueIndex = 0;\\r\\n       
+    this._isInCollider = false;\\r\\n        this._falseChoiceCount = 0;\\r\\n       
+    this.savedResults = [];\\r\\n    }\\r\\n    Start() {\\r\\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\\r\\n            this._zepetoCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    });\\r\\n        const jsonFile = UnityEngine_1.Resources.Load(\\\"dialogues\\\");\\r\\n       
+    if (jsonFile) {\\r\\n            const data = JSON.parse(jsonFile.text);\\r\\n           
+    this._dialogues = data.dialogues.filter((d) => d.id !== 31);\\r\\n           
+    this._specialDialogue = data.dialogues.find((d) => d.id === 31);\\r\\n       
+    }\\r\\n        else {\\r\\n            console.error(\\\"Failed to load JSON
+    file.\\\");\\r\\n            return;\\r\\n        }\\r\\n        this.HideUI();\\r\\n       
+    this.nextButton.onClick.AddListener(() => this.OnNext());\\r\\n        this.exitButton.onClick.AddListener(()
+    => this.OnExit());\\r\\n        for (let i = 0; i < this.choiceButtons.length;
+    i++) {\\r\\n            const buttonIndex = i;\\r\\n            this.choiceButtons[i].onClick.AddListener(()
+    => this.OnChoiceSelected(buttonIndex));\\r\\n        }\\r\\n        for (let
+    i = 0; i < this.imageButtons.length; i++) {\\r\\n            const buttonIndex
+    = i;\\r\\n            this.imageButtons[i].onClick.AddListener(() => this.OnChoiceSelected(buttonIndex));\\r\\n       
+    }\\r\\n        this.HideAllUIImages();\\r\\n    }\\r\\n    OnTriggerEnter(collider)
+    {\\r\\n        if (this._zepetoCharacter && collider.gameObject === this._zepetoCharacter.gameObject)
+    {\\r\\n            this._isInCollider = true;\\r\\n            this.ShowUI();\\r\\n       
+    }\\r\\n    }\\r\\n    OnTriggerExit(collider) {\\r\\n        if (this._zepetoCharacter
+    && collider.gameObject === this._zepetoCharacter.gameObject) {\\r\\n           
+    this._isInCollider = false;\\r\\n            this.HideUI();\\r\\n        }\\r\\n   
+    }\\r\\n    ShowUI() {\\r\\n        if (!this._isInCollider)\\r\\n           
+    return;\\r\\n        this.UpdateDialogue();\\r\\n        this.dialogueCanvas.SetActive(true);\\r\\n   
+    }\\r\\n    HideUI() {\\r\\n        this.dialogueCanvas.SetActive(false);\\r\\n   
+    }\\r\\n    UpdateDialogue() {\\r\\n        if (this._currentDialogueIndex >=
+    this._dialogues.length) {\\r\\n            this.HideUI();\\r\\n            return;\\r\\n       
+    }\\r\\n        const currentDialogue = this._dialogues[this._currentDialogueIndex];\\r\\n       
+    this.dialogueText.text = currentDialogue.text;\\r\\n        if (currentDialogue.name)
+    {\\r\\n            this.nameText.text = currentDialogue.name;\\r\\n           
+    this.nameText.gameObject.SetActive(true);\\r\\n        }\\r\\n        else {\\r\\n           
+    this.nameText.gameObject.SetActive(false);\\r\\n        }\\r\\n        if (currentDialogue.options
+    && currentDialogue.options.length > 0) {\\r\\n            const textOptions =
+    currentDialogue.options.filter(opt => opt.type === \\\"text\\\");\\r\\n           
+    const imageOptions = currentDialogue.options.filter(opt => opt.type === \\\"image\\\");\\r\\n           
+    if (textOptions.length > 0) {\\r\\n                this.ShowTextChoices(textOptions);\\r\\n           
+    }\\r\\n            if (imageOptions.length > 0) {\\r\\n                this.ShowImageChoices(imageOptions);\\r\\n           
+    }\\r\\n            this.nextButton.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n        else {\\r\\n            this.HideChoices();\\r\\n            this.nextButton.gameObject.SetActive(true);\\r\\n       
+    }\\r\\n    }\\r\\n    ShowTextChoices(choices) {\\r\\n        this.HideChoices();\\r\\n       
+    for (let i = 0; i < choices.length; i++) {\\r\\n            if (i < this.choiceButtons.length)
+    {\\r\\n                const button = this.choiceButtons[i];\\r\\n               
+    button.gameObject.SetActive(true);\\r\\n                const textComponent =
+    button.GetComponentInChildren($typeof(TMPro_1.TMP_Text));\\r\\n               
+    if (textComponent)\\r\\n                    textComponent.text = choices[i].value;\\r\\n           
+    }\\r\\n        }\\r\\n    }\\r\\n    ShowImageChoices(choices) {\\r\\n       
+    this.HideChoices();\\r\\n        for (let i = 0; i < choices.length; i++) {\\r\\n           
+    if (i < this.imageButtons.length) {\\r\\n                const button = this.imageButtons[i];\\r\\n               
+    button.gameObject.SetActive(true);\\r\\n                const imageComponent
+    = button.GetComponentInChildren($typeof(UnityEngine_UI_1.Image));\\r\\n               
+    const sprite = UnityEngine_1.Resources.Load(choices[i].value);\\r\\n               
+    if (sprite && imageComponent) {\\r\\n                    imageComponent.sprite
+    = sprite;\\r\\n                    imageComponent.rectTransform.sizeDelta = new
+    UnityEngine_1.Vector2(50, 50);\\r\\n                }\\r\\n                else
+    {\\r\\n                    console.error(`Failed to load image: ${choices[i].value}`);\\r\\n               
+    }\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n    HideChoices() {\\r\\n       
+    for (const button of this.choiceButtons) {\\r\\n            button.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n        for (const button of this.imageButtons) {\\r\\n            button.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n    }\\r\\n    OnChoiceSelected(choiceIndex) {\\r\\n        const currentDialogue
+    = this._dialogues[this._currentDialogueIndex];\\r\\n        if (!currentDialogue.options
+    || choiceIndex >= currentDialogue.options.length) {\\r\\n            console.error(\\\"Invalid
+    choice index\\\");\\r\\n            return;\\r\\n        }\\r\\n        const
+    selectedOption = currentDialogue.options[choiceIndex];\\r\\n        if (selectedOption.required)
+    {\\r\\n            this.SaveResult(currentDialogue.id, this._falseChoiceCount
+    + 1, selectedOption.value);\\r\\n            this.PlayTrueChoiceSound();\\r\\n           
+    this._currentDialogueIndex++;\\r\\n            this._falseChoiceCount = 0;\\r\\n           
+    this.UpdateDialogue();\\r\\n        }\\r\\n        else {\\r\\n            this._falseChoiceCount++;\\r\\n           
+    this.PlayFalseChoiceSound();\\r\\n            if (this._specialDialogue) {\\r\\n               
+    this.dialogueText.text = this._specialDialogue.text;\\r\\n            }\\r\\n           
+    this.ShowUIImage(this._falseChoiceCount - 1);\\r\\n            if (this._falseChoiceCount
+    >= 4) {\\r\\n                this._currentDialogueIndex++;\\r\\n               
+    this._falseChoiceCount = 0;\\r\\n                this.UpdateDialogue();\\r\\n           
+    }\\r\\n        }\\r\\n    }\\r\\n    SaveResult(dialogueId, attempts, correctAnswer)
+    {\\r\\n        const result = { dialogueId, attempts, correctAnswer };\\r\\n       
+    this.savedResults.push(result);\\r\\n        const savedData = JSON.stringify(this.savedResults);\\r\\n       
+    UnityEngine_1.PlayerPrefs.SetString(\\\"DialogueResults\\\", savedData);\\r\\n       
+    UnityEngine_1.PlayerPrefs.Save();\\r\\n        console.log(\\\"Result saved:\\\",
+    JSON.stringify(result, null, 2)); // \uFFFD\uFFFD\xFC\uFFFD\uFFFD JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\\r\\n        console.log(\\\"All saved results:\\\", JSON.stringify(this.savedResults,
+    null, 2)); // \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD
+    \uFFFD\uFFFD\uFFFD\\r\\n    }\\r\\n    LoadAndLogResults() {\\r\\n        const
+    savedData = UnityEngine_1.PlayerPrefs.GetString(\\\"DialogueResults\\\", \\\"[]\\\");\\r\\n       
+    const results = JSON.parse(savedData);\\r\\n        console.log(\\\"Loaded Results:\\\",
+    JSON.stringify(results, null, 2)); // \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0378\uFFFD
+    JSON \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\\r\\n       
+    if (Array.isArray(results) && results.length > 0) {\\r\\n            results.forEach((result,
+    index) => {\\r\\n                console.log(`Result ${index + 1}:`, JSON.stringify(result,
+    null, 2));\\r\\n            });\\r\\n        }\\r\\n        else {\\r\\n           
+    console.log(\\\"No results found in PlayerPrefs.\\\");\\r\\n        }\\r\\n   
+    }\\r\\n    OnNext() {\\r\\n        this._currentDialogueIndex++;\\r\\n       
+    this._falseChoiceCount = 0;\\r\\n        this.UpdateDialogue();\\r\\n    }\\r\\n   
+    OnExit() {\\r\\n        console.log(\\\"Dialogue exited by user.\\\");\\r\\n       
+    this._currentDialogueIndex = 0;\\r\\n        this._falseChoiceCount = 0;\\r\\n       
+    this.HideUI();\\r\\n    }\\r\\n    ShowUIImage(index) {\\r\\n        if (index
+    >= 0 && index < this.uiImages.length) {\\r\\n            this.uiImages[index].SetActive(true);\\r\\n           
+    this.StartCoroutine(this.HideUIImageAfterDelay(this.uiImages[index], 1));\\r\\n       
+    }\\r\\n    }\\r\\n    *HideUIImageAfterDelay(image, delay) {\\r\\n        yield
+    new UnityEngine_1.WaitForSeconds(delay);\\r\\n        image.SetActive(false);\\r\\n   
+    }\\r\\n    HideAllUIImages() {\\r\\n        for (const image of this.uiImages)
+    {\\r\\n            image.SetActive(false);\\r\\n        }\\r\\n    }\\r\\n   
+    PlayFalseChoiceSound() {\\r\\n        if (this.audioSource && this.falseChoiceClip)
+    {\\r\\n            this.audioSource.clip = this.falseChoiceClip;\\r\\n           
+    this.audioSource.Play();\\r\\n        }\\r\\n        else {\\r\\n           
+    console.error(\\\"AudioSource or AudioClip for false choice is missing.\\\");\\r\\n       
+    }\\r\\n    }\\r\\n    PlayTrueChoiceSound() {\\r\\n        if (this.audioSource
+    && this.trueChoiceClip) {\\r\\n            this.audioSource.clip = this.trueChoiceClip;\\r\\n           
+    this.audioSource.Play();\\r\\n        }\\r\\n        else {\\r\\n           
+    console.error(\\\"AudioSource or AudioClip for true choice is missing.\\\");\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = DialogueManager;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTlBDRGlhbG9ndWVVSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk5QQ0RpYWxvZ3VlVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBK0k7QUFDL0ksbURBQStDO0FBQy9DLGlDQUFpQztBQUNqQyxpREFBc0Q7QUFDdEQsNkVBQTZFO0FBZTdFLE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBQWxFOztRQWFZLHFCQUFnQixHQUFvQixJQUFJLENBQUM7UUFDekMsZUFBVSxHQUFlLEVBQUUsQ0FBQztRQUM1QiwwQkFBcUIsR0FBVyxDQUFDLENBQUM7UUFDbEMsa0JBQWEsR0FBWSxLQUFLLENBQUM7UUFFL0Isc0JBQWlCLEdBQVcsQ0FBQyxDQUFDO1FBRTlCLGlCQUFZLEdBQXNFLEVBQUUsQ0FBQztJQThPakcsQ0FBQztJQTVPRyxLQUFLO1FBQ0QsMkNBQWEsQ0FBQyxRQUFRLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2RCxJQUFJLENBQUMsZ0JBQWdCLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUM7UUFDdEYsQ0FBQyxDQUFDLENBQUM7UUFFSCxNQUFNLFFBQVEsR0FBYyx1QkFBUyxDQUFDLElBQUksQ0FBWSxXQUFXLENBQUMsQ0FBQztRQUNuRSxJQUFJLFFBQVEsRUFBRTtZQUNWLE1BQU0sSUFBSSxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxDQUFDO1lBQ3ZDLElBQUksQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFXLEVBQUUsRUFBRSxDQUFDLENBQUMsQ0FBQyxFQUFFLEtBQUssRUFBRSxDQUFDLENBQUM7WUFDdEUsSUFBSSxDQUFDLGdCQUFnQixHQUFHLElBQUksQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBVyxFQUFFLEVBQUUsQ0FBQyxD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\",\"assetPath\":\"Assets/Scripts/NPCDialogueUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"dialogueCanvas\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"nameText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"dialogueText\",\"type\":\"TMPro.TMP_Text\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"choiceButtons\",\"type\":\"UnityEngine.UI.Button[]\",\"isArray\":true,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"imageButtons\",\"type\":\"UnityEngine.UI.Button[]\",\"isArray\":true,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"nextButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"exitButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"uiImages\",\"type\":\"UnityEngine.GameObject[]\",\"isArray\":true,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.AudioModule\",\"name\":\"audioSource\",\"type\":\"UnityEngine.AudioSource\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.AudioModule\",\"name\":\"falseChoiceClip\",\"type\":\"UnityEngine.AudioClip\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.AudioModule\",\"name\":\"trueChoiceClip\",\"type\":\"UnityEngine.AudioClip\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"DialogueManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 1120978b1fdf09772124cfd66e3fb4cd
+  onlyWriteTrigger: 0
