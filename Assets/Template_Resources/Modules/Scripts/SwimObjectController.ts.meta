@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: 2b59996fa527e4e9cb6a3ba49ce92ee2
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass SwimObjectController extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Start() {\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\r\n            this.localPlayerCollider = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.GetComponent($typeof(UnityEngine_1.Collider));\r\n           
+    this._anim = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.ZepetoAnimator;\r\n       
+    });\r\n    }\r\n    OnTriggerEnter(coll) {\r\n        console.log(\"OnTriggerEnter\");\r\n       
+    if (coll != this.localPlayerCollider) {\r\n            return;\r\n        }\r\n       
+    this._isSwimming = true;\r\n        //this._anim.SetInteger(\"State\", 17);\r\n   
+    }\r\n    OnTriggerExit(coll) {\r\n        console.log(\"OnTriggerExit\");\r\n       
+    if (coll != this.localPlayerCollider) {\r\n            return;\r\n        }\r\n       
+    this._isSwimming = false;\r\n    }\r\n    Update() {\r\n        this._anim.SetBool(\"isSwim\",
+    this._isSwimming);\r\n    }\r\n}\r\nexports.default = SwimObjectController;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3dpbU9iamVjdENvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJTd2ltT2JqZWN0Q29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFpRDtBQUNqRCw2RUFBNEQ7QUFDNUQsaURBQXFEO0FBRXJELE1BQXFCLG9CQUFxQixTQUFRLHFDQUFxQjtJQU0zRCxLQUFLO1FBQ1QsMkNBQWEsQ0FBQyxRQUFRLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2RCxJQUFJLENBQUMsbUJBQW1CLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsWUFBWSxTQUFDLHNCQUFRLEVBQUcsQ0FBQztZQUM5RyxJQUFJLENBQUMsS0FBSyxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLGNBQWMsQ0FBQztRQUMxRixDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxjQUFjLENBQUMsSUFBYztRQUNqQyxPQUFPLENBQUMsR0FBRyxDQUFDLGdCQUFnQixDQUFDLENBQUM7UUFDOUIsSUFBSSxJQUFJLElBQUksSUFBSSxDQUFDLG1CQUFtQixFQUFFO1lBQ2xDLE9BQU87U0FDVjtRQUNELElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDO1FBQ3hCLHFDQUFxQztJQUN6QyxDQUFDO0lBRU8sYUFBYSxDQUFDLElBQWM7UUFDaEMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFlLENBQUMsQ0FBQztRQUM3QixJQUFJLElBQUksSUFBSSxJQUFJLENBQUMsbUJBQW1CLEVBQUU7WUFDbEMsT0FBTztTQUNWO1FBQ0QsSUFBSSxDQUFDLFdBQVcsR0FBRyxLQUFLLENBQUM7SUFDN0IsQ0FBQztJQUVPLE1BQU07UUFDVixJQUFJLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLFdBQVcsQ0FBQyxDQUFDO0lBQ25ELENBQUM7Q0FFSjtBQWxDRCx1Q0FrQ0MifQ==","assetPath":"Assets/Template_Resources/Modules/Scripts/SwimObjectController.ts","manifest":{"properties":[],"name":"SwimObjectController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 3d1fe0f6f244eb88de59e88cee087ee7
+  onlyWriteTrigger: 0

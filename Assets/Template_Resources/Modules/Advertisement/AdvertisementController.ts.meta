@@ -1,0 +1,56 @@
+fileFormatVersion: 2
+guid: eb0437963c75c491c98af4244878afde
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    AdvertisementManager_1 = require(\"./AdvertisementManager\");\r\nclass AdvertisementController
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n       
+    super(...arguments);\r\n        this._isIconActive = false;\r\n        this._isDoneFirstTrig
+    = false;\r\n    }\r\n    OnTriggerEnter(coll) {\r\n        if (coll != ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer?.zepetoPlayer?.character.GetComponent($typeof(UnityEngine_1.Collider)))
+    {\r\n            return;\r\n        }\r\n        this.ShowIcon();\r\n       
+    //this.OnTriggerEnterEvent?.Invoke();\r\n    }\r\n    OnTriggerExit(coll) {\r\n       
+    if (coll != ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer?.zepetoPlayer?.character.GetComponent($typeof(UnityEngine_1.Collider)))
+    {\r\n            return;\r\n        }\r\n        this.HideIcon();\r\n       
+    //this.OnTriggerExitEvent?.Invoke();\r\n    }\r\n    ShowIcon() {\r\n       
+    if (!this._isDoneFirstTrig) {\r\n            this.CreateIcon();\r\n           
+    this._isDoneFirstTrig = true;\r\n        }\r\n        else\r\n            this._canvas.gameObject.SetActive(true);\r\n       
+    this._isIconActive = true;\r\n    }\r\n    HideIcon() {\r\n        this._canvas?.gameObject.SetActive(false);\r\n       
+    this._isIconActive = false;\r\n    }\r\n    CreateIcon() {\r\n        if (this._canvas
+    === undefined) {\r\n            const canvas = UnityEngine_1.GameObject.Instantiate(this.prefIconCanvas,
+    this.iconPosition);\r\n            this._canvas = canvas.GetComponent($typeof(UnityEngine_1.Canvas));\r\n           
+    this._button = canvas.GetComponentInChildren($typeof(UnityEngine_UI_1.Button));\r\n           
+    this._canvas.transform.position = this.iconPosition.position;\r\n        }\r\n       
+    this._cachedWorldCamera = UnityEngine_1.Object.FindObjectOfType($typeof(UnityEngine_1.Camera));\r\n       
+    this._canvas.worldCamera = this._cachedWorldCamera;\r\n        this._button.onClick.AddListener(()
+    => {\r\n            //this.OnClickIcon();\r\n            AdvertisementManager_1.default.Instance.ReWardTeleport(this.destination.position,
+    this.destination.rotation);\r\n        });\r\n    }\r\n    UpdateIconRotation()
+    {\r\n        this._canvas.transform.LookAt(this._cachedWorldCamera.transform);\r\n   
+    }\r\n    OnClickIcon() {\r\n        this.OnClickEvent?.Invoke();\r\n    }\r\n   
+    Update() {\r\n        if (this._isDoneFirstTrig && this._canvas?.gameObject.activeSelf)\r\n           
+    this.UpdateIconRotation();\r\n    }\r\n}\r\nexports.default = AdvertisementController;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWR2ZXJ0aXNlbWVudENvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJBZHZlcnRpc2VtZW50Q29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBc0Y7QUFDdEYsbURBQXdDO0FBRXhDLDZFQUE0RDtBQUM1RCxpRUFBMEQ7QUFFMUQsTUFBcUIsdUJBQXdCLFNBQVEscUNBQXFCO0lBQTFFOztRQVVZLGtCQUFhLEdBQVksS0FBSyxDQUFDO1FBQy9CLHFCQUFnQixHQUFZLEtBQUssQ0FBQztJQWtFOUMsQ0FBQztJQTlEVyxjQUFjLENBQUMsSUFBYztRQUNqQyxJQUFJLElBQUksSUFBSSwyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxXQUFXLEVBQUUsWUFBWSxFQUFFLFNBQVMsQ0FBQyxZQUFZLFNBQUMsc0JBQVEsRUFBRyxFQUFFO1lBQzlGLE9BQU87U0FDVjtRQUVELElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztRQUNoQixxQ0FBcUM7SUFDekMsQ0FBQztJQUVPLGFBQWEsQ0FBQyxJQUFjO1FBQ2hDLElBQUksSUFBSSxJQUFJLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsRUFBRSxZQUFZLEVBQUUsU0FBUyxDQUFDLFlBQVksU0FBQyxzQkFBUSxFQUFHLEVBQUU7WUFDOUYsT0FBTztTQUNWO1FBRUQsSUFBSSxDQUFDLFFBQVEsRUFBRSxDQUFDO1FBQ2hCLG9DQUFvQztJQUN4QyxDQUFDO0lBRU0sUUFBUTtRQUNYLElBQUksQ0FBQyxJQUFJLENBQUMsZ0JBQWdCLEVBQUU7WUFDeEIsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1lBQ2xCLElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxJQUFJLENBQUM7U0FDaEM7O1lBRUcsSUFBSSxDQUFDLE9BQU8sQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDO1FBQzVDLElBQUksQ0FBQyxhQUFhLEdBQUcsSUFBSSxDQUFDO0lBQzlCLENBQUM7SUFFTSxRQUFRO1FBQ1gsSUFBSSxDQUFDLE9BQU8sRUFBRSxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzFDLElBQUksQ0FBQyxhQUFhLEdBQUcsS0FBSyxDQUFDO0lBQy9CLENBQUM7SUFFTyxVQUFVO1FBQ2QsSUFBSSxJQUFJLENBQUMsT0FBTyxLQUFLLFNBQVMsRUFBRTtZQUM1QixNQUFNLE1BQU0sR0FBRyx3QkFBVSxDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsY0FBYyxFQUFFLElBQUksQ0FBQyxZQUFZLENBQWUsQ0FBQztZQUM1RixJQUFJLENBQUMsT0FBTyxHQUFHLE1BQU0sQ0FBQyxZQUFZLFNBQUMsb0JBQU0sRUFBRyxDQUFDO1lBQzdDLElBQUksQ0FBQyxPQUFPLEdBQUcsTUFBTSxDQUFDLHNCQUFzQixTQUFDLHVCQUFNLEVBQUcsQ0FBQztZQUN2RCxJQUFJLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLFlBQVksQ0FBQyxRQUFRLENBQUM7U0FDaEU7UUFDRCxJQUFJLENBQUMsa0JBQWtCLEdBQUcsb0JBQU0sQ0FBQyxnQkFBZ0IsU0FBQyxvQkFBTSxFQUFHLENBQUM7UUFDNUQsSUFBSSxDQUFDLE9BQU8sQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLGtCQUFrQixDQUFDO1FBRW5ELElBQUksQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDbEMscUJBQXFCO1lBQ3JCLDhCQUFvQixDQUFDLFFBQVEsQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUN2RyxDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxrQkFBa0I7UUFDdEIsSUFBSSxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxrQkFBa0IsQ0FBQyxTQUFTLENBQUMsQ0FBQztJQUNyRSxDQUFDO0lBRU8sV0FBVztRQUNmLElBQUksQ0FBQyxZQUFZLEVBQUUsTUFBTSxFQUFFLENBQUM7SUFDaEMsQ0FBQztJQUVPLE1BQU07UUFDVixJQUFJLElBQUksQ0FBQyxnQkFBZ0IsSUFBSSxJQUFJLENBQUMsT0FBTyxFQUFFLFVBQVUsQ0FBQyxVQUFVO1lBQzVELElBQUksQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO0lBQ2xDLENBQUM7Q0FFSjtBQTdFRCwwQ0E2RUMifQ==","assetPath":"Assets/Template_Resources/Modules/Advertisement/AdvertisementController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"destination","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"prefIconCanvas","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"iconPosition","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"OnClickEvent","type":"UnityEngine.Events.UnityEvent","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"AdvertisementController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 546dacbdedfd8ac2320a0f5a7f14cda4
+  onlyWriteTrigger: 0
